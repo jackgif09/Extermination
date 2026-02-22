@@ -50,4 +50,7 @@ public class ServiceRequest
     public ServiceStatus Status { get; set; } = ServiceStatus.New;
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    [MaxLength(2000)]
+    public string? Notes { get; set; }
 }

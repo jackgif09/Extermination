@@ -58,4 +58,19 @@ public class AdminController : Controller
 
         return RedirectToAction(nameof(Details), new { id });
     }
+
+    // POST: /Admin/UpdateNotes/{id}
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UpdateNotes(int id, string? notes)
+    {
+        var request = await _db.ServiceRequests.FindAsync(id);
+        if (request is null)
+            return NotFound();
+
+        request.Notes = notes;
+        await _db.SaveChangesAsync();
+
+        return RedirectToAction(nameof(Details), new { id });
+    }
 }

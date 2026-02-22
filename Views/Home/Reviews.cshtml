@@ -1,0 +1,62 @@
+@{
+    ViewData["Title"] = "Reviews";
+}
+
+<div class="max-w-6xl mx-auto px-6 py-16">
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-3">Reviews</h1>
+    <p class="text-gray-500 mb-14 max-w-xl">What customers say after working with me.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl">
+
+        <div class="border border-gray-100 rounded-2xl p-8">
+            <p class="text-gray-700 leading-relaxed mb-6">
+                "Called on a Tuesday with a bad ant problem in the kitchen. He was out Wednesday morning, explained everything clearly, and they haven't been back since. Straightforward and fair."
+            </p>
+            <div>
+                <p class="text-sm font-medium text-gray-900">Linda M.</p>
+                <p class="text-xs text-gray-400">Springfield</p>
+            </div>
+        </div>
+
+        <div class="border border-gray-100 rounded-2xl p-8">
+            <p class="text-gray-700 leading-relaxed mb-6">
+                "Found mice in the garage in January. He came out, set traps, sealed up a gap I'd never noticed, and followed up two weeks later. Haven't seen a single one since. Highly recommend."
+            </p>
+            <div>
+                <p class="text-sm font-medium text-gray-900">Tom R.</p>
+                <p class="text-xs text-gray-400">Chatham</p>
+            </div>
+        </div>
+
+        <div class="border border-gray-100 rounded-2xl p-8">
+            <p class="text-gray-700 leading-relaxed mb-6">
+                "Had a wasp nest under the eave. Called in the morning, he was there by afternoon. Took care of it in 20 minutes and didn't charge an arm and a leg. Will definitely call again."
+            </p>
+            <div>
+                <p class="text-sm font-medium text-gray-900">Karen D.</p>
+                <p class="text-xs text-gray-400">Rochester</p>
+            </div>
+        </div>
+
+        <div class="border border-gray-100 rounded-2xl p-8">
+            <p class="text-gray-700 leading-relaxed mb-6">
+                "I manage several rental properties and he's been my go-to for a couple years now. Reliable, professional, and tenants actually like him. Doesn't try to upsell unnecessary stuff either."
+            </p>
+            <div>
+                <p class="text-sm font-medium text-gray-900">Brian F.</p>
+                <p class="text-xs text-gray-400">Springfield — Property Manager</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="mt-14 pt-10 border-t border-gray-100">
+        <p class="text-sm text-gray-400 mb-5">Ready to get started?</p>
+        <a asp-controller="ServiceRequest" asp-action="Create"
+           class="inline-block bg-green-700 hover:bg-green-800 text-white font-medium px-7 py-3 rounded-xl text-sm transition-colors">
+            Book a Service Call
+        </a>
+    </div>
+
+</div>
