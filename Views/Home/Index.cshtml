@@ -1,58 +1,48 @@
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Clintonville Area Pest Control";
 }
 
-<!-- Hero -->
-<section class="max-w-6xl mx-auto px-6 pt-20 pb-16">
-    <p class="text-sm text-green-700 font-medium mb-4">Serving central Illinois since 2008</p>
-    <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight max-w-2xl mb-6">
-        Pest problems?<br>I can help.
+<div class="max-w-3xl mx-auto px-6 py-16 text-center">
+
+    <!-- Heading -->
+    <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight mb-10">
+        Cime-X: Clintonville Area Pest Control
     </h1>
-    <p class="text-lg text-gray-500 max-w-xl mb-10 leading-relaxed">
-        I'm a licensed solo operator. No call centers, no subcontractors — just me showing up on time and getting the job done right.
+
+    <!-- Logo -->
+    <div class="flex justify-center mb-10">
+        <img src="~/images/cime-x-logo.jpg"
+             alt="Cime-X Pest Control Logo"
+             class="max-w-xs sm:max-w-sm w-full h-auto" />
+    </div>
+
+    <!-- IPM description -->
+    <p class="text-base text-gray-700 leading-relaxed mb-10 max-w-2xl mx-auto">
+        An Integrated Pest Management System that includes habitat modification, food source and moisture removal, traps, heat, physical removal, repairs, and organic and chemical treatment.
     </p>
-    <div class="flex flex-col sm:flex-row gap-4">
+
+    <!-- Pest list -->
+    <div class="mb-14">
+        <p class="text-sm text-gray-500 leading-relaxed">
+            Ants &middot; Bedbugs &middot; Beetles &middot; Box Elder Bugs &middot; Cockroaches &middot; Crickets &middot;
+            Earwigs &middot; Fleas &middot; Flies &middot; Gnats &middot; Grubs &middot; Hornets &middot; Lady Bugs &middot;
+            Millipedes &middot; Mice &middot; Mites &middot; Mosquitoes &middot; Moths &middot; Rats &middot; Spiders &middot;
+            Spotted Lantern Flies &middot; Spring Tails &middot; Stinging Insects &middot; Stored Product Pests &middot;
+            Termites &middot; Ticks &middot; Turf Pests &middot; Vector Pests &middot; Voles &middot; Wasps &middot;
+            Yellow Jackets &middot; and MORE.
+        </p>
+    </div>
+
+    <!-- Peace of Mind -->
+    <div class="border-t border-[#d0dbd4] pt-12">
+        <p class="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">Peace of Mind</p>
+        <p class="text-base text-gray-600 leading-relaxed max-w-xl mx-auto">
+            I want to help protect your home, ease your worries, keep your bugs private, and prevent pests from returning.
+        </p>
         <a asp-controller="ServiceRequest" asp-action="Create"
-           class="inline-block bg-green-700 hover:bg-green-800 text-white font-medium px-8 py-3.5 rounded-xl text-sm transition-colors text-center">
+           class="inline-block mt-8 bg-gray-900 hover:bg-gray-700 text-white font-medium px-8 py-3.5 rounded-lg text-sm transition-colors">
             Book a Service Call
         </a>
-        <a href="tel:5551234567"
-           class="inline-block border border-gray-200 hover:border-gray-400 text-gray-700 font-medium px-8 py-3.5 rounded-xl text-sm transition-colors text-center">
-            (555) 123-4567
-        </a>
     </div>
-</section>
 
-<div class="border-t border-gray-100"></div>
-
-<!-- What I treat -->
-<section class="max-w-6xl mx-auto px-6 py-16">
-    <h2 class="text-xl font-semibold text-gray-900 mb-4">What I treat</h2>
-    <p class="text-gray-500 leading-relaxed max-w-2xl">
-        Ants &middot; Bed Bugs &middot; Cockroaches &middot; Fleas &middot; Mosquitoes &middot; Rodents &middot; Spiders &middot; Termites &middot; Wasps &middot; and more
-    </p>
-    <p class="mt-5 text-sm text-gray-400">
-        Not sure what you're dealing with? Call me and I'll walk you through it before you book anything.
-    </p>
-</section>
-
-<div class="border-t border-gray-100"></div>
-
-<!-- How I work -->
-<section class="max-w-6xl mx-auto px-6 py-16">
-    <h2 class="text-xl font-semibold text-gray-900 mb-10">How I work</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-10">
-        <div>
-            <p class="font-semibold text-gray-900 mb-2">Honest assessment</p>
-            <p class="text-sm text-gray-500 leading-relaxed">I'll tell you exactly what the problem is, what it'll take to fix it, and what it'll cost — before any work starts.</p>
-        </div>
-        <div>
-            <p class="font-semibold text-gray-900 mb-2">Targeted treatment</p>
-            <p class="text-sm text-gray-500 leading-relaxed">I use integrated pest management to address the root cause, not just treat the symptoms.</p>
-        </div>
-        <div>
-            <p class="font-semibold text-gray-900 mb-2">Follow-up included</p>
-            <p class="text-sm text-gray-500 leading-relaxed">Most treatments include a follow-up visit. If pests come back between visits, so do I.</p>
-        </div>
-    </div>
-</section>
+</div>
