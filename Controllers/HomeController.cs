@@ -13,11 +13,12 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()        => View();
-    public IActionResult ServiceArea()  => View();
-    public IActionResult Rates()        => View();
-    public IActionResult Reviews()      => View();
-    public IActionResult Contact()      => View();
+    public IActionResult Index()               => View();
+    public IActionResult ServiceArea()         => View();
+    public IActionResult Rates()               => View();
+    public IActionResult CommercialLicenses()  => View();
+    public IActionResult Reviews()             => View();
+    public IActionResult Contact()             => View();
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
