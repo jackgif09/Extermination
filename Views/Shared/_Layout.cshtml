@@ -6,85 +6,80 @@
     <title>@ViewData["Title"] - BugOff Exterminators</title>
     <link rel="stylesheet" href="~/css/app.css" asp-append-version="true" />
 </head>
-<body class="bg-gray-50 text-slate-900 min-h-screen flex flex-col">
+<body class="bg-white text-gray-900 min-h-screen flex flex-col">
 
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 bg-green-800 shadow-md">
-        <div class="max-w-6xl mx-auto px-4">
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-6">
             <div class="flex items-center justify-between h-16">
 
-                <!-- Logo -->
                 <a asp-controller="Home" asp-action="Index"
-                   class="text-white font-bold text-xl tracking-tight hover:text-green-100 transition-colors">
-                    🐛 BugOff Exterminators
+                   class="font-bold text-gray-900 text-lg tracking-tight hover:text-green-800 transition-colors">
+                    BugOff Exterminators
                 </a>
 
-                <!-- Desktop links -->
-                <div class="hidden md:flex items-center gap-6">
+                <nav class="hidden md:flex items-center gap-8">
                     <a asp-controller="Home" asp-action="Index"
-                       class="text-green-100 hover:text-white text-sm font-medium transition-colors">Home</a>
+                       class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Home</a>
                     <a asp-controller="Home" asp-action="About"
-                       class="text-green-100 hover:text-white text-sm font-medium transition-colors">About</a>
+                       class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">About</a>
                     <a asp-controller="Admin" asp-action="Index"
-                       class="text-green-100 hover:text-white text-sm font-medium transition-colors">Admin</a>
+                       class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Admin</a>
                     <a asp-controller="ServiceRequest" asp-action="Create"
-                       class="bg-amber-500 hover:bg-amber-400 text-white text-sm font-semibold px-4 py-2 rounded-md transition-colors">
+                       class="bg-green-800 hover:bg-green-900 text-white text-sm font-medium px-5 py-2 rounded transition-colors">
                         Request Service
                     </a>
-                </div>
+                </nav>
 
-                <!-- Mobile hamburger -->
                 <button id="menu-toggle"
-                        class="md:hidden text-green-100 hover:text-white focus:outline-none"
+                        class="md:hidden text-gray-500 hover:text-gray-900 focus:outline-none"
                         aria-label="Toggle navigation" aria-expanded="false">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
                               d="M4 6h16M4 12h16M4 18h16" />
-                        <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
                               d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
 
-            <!-- Mobile menu -->
-            <div id="mobile-menu" class="hidden md:hidden pb-4 border-t border-green-700 pt-3 flex flex-col gap-3">
+            <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 py-4 flex flex-col gap-4">
                 <a asp-controller="Home" asp-action="Index"
-                   class="text-green-100 hover:text-white text-sm font-medium transition-colors">Home</a>
+                   class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Home</a>
                 <a asp-controller="Home" asp-action="About"
-                   class="text-green-100 hover:text-white text-sm font-medium transition-colors">About</a>
+                   class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">About</a>
                 <a asp-controller="Admin" asp-action="Index"
-                   class="text-green-100 hover:text-white text-sm font-medium transition-colors">Admin</a>
+                   class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Admin</a>
                 <a asp-controller="ServiceRequest" asp-action="Create"
-                   class="bg-amber-500 hover:bg-amber-400 text-white text-sm font-semibold px-4 py-2 rounded-md text-center transition-colors">
+                   class="bg-green-800 hover:bg-green-900 text-white text-sm font-medium px-5 py-2.5 rounded text-center transition-colors">
                     Request Service
                 </a>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- Page content -->
     <main class="flex-1">
         @RenderBody()
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-gray-300">
-        <div class="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer class="bg-gray-900 text-gray-400">
+        <div class="max-w-6xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-3 gap-10">
             <div>
-                <p class="text-white font-bold text-lg mb-2">🐛 BugOff Exterminators</p>
-                <p class="text-sm text-gray-400">Professional pest control you can trust. Licensed, insured, and committed to eco-friendly solutions.</p>
+                <p class="text-white font-semibold text-base mb-3">BugOff Exterminators</p>
+                <p class="text-sm leading-relaxed">Licensed, insured pest control serving central Illinois since 2008. We stand behind every treatment we perform.</p>
             </div>
             <div>
-                <p class="text-white font-semibold mb-3">Contact Us</p>
-                <p class="text-sm">📞 <a href="tel:5551234567" class="hover:text-white transition-colors">(555) 123-4567</a></p>
-                <p class="text-sm mt-1">✉️ <a href="mailto:info@bugoff.com" class="hover:text-white transition-colors">info@bugoff.com</a></p>
+                <p class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-4">Contact</p>
+                <p class="text-sm mb-2"><a href="tel:5551234567" class="hover:text-white transition-colors">(555) 123-4567</a></p>
+                <p class="text-sm mb-2"><a href="mailto:info@bugoff.com" class="hover:text-white transition-colors">info@bugoff.com</a></p>
+                <p class="text-sm text-gray-500">Mon&ndash;Sat, 7am&ndash;7pm</p>
             </div>
             <div>
-                <p class="text-white font-semibold mb-3">Service Area</p>
-                <p class="text-sm text-gray-400">Serving Springfield, Shelbyville, Capital City, and surrounding communities in central Illinois.</p>
+                <p class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-4">Service Area</p>
+                <p class="text-sm leading-relaxed">Springfield, Shelbyville, Capital City, and surrounding communities throughout central Illinois.</p>
             </div>
         </div>
-        <div class="border-t border-slate-700 text-center py-4 text-xs text-gray-500">
+        <div class="border-t border-gray-800 py-5 text-center text-xs text-gray-600">
             &copy; @DateTime.Now.Year BugOff Exterminators. All rights reserved.
         </div>
     </footer>

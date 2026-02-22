@@ -3,58 +3,69 @@
     ViewData["Title"] = "Request Submitted";
 }
 
-<section class="py-16 px-4">
-    <div class="max-w-xl mx-auto bg-white rounded-2xl shadow-md p-10 text-center">
+<section class="bg-gray-50 px-6 py-16">
+    <div class="max-w-lg mx-auto">
 
-        <!-- Checkmark -->
-        <div class="flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mx-auto mb-6">
-            <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-            </svg>
-        </div>
+        <div class="bg-white border border-gray-200 rounded p-10">
 
-        <h1 class="text-2xl font-extrabold text-slate-900 mb-1">Request Submitted!</h1>
-        <p class="text-slate-500 mb-8">
-            Thank you, <span class="font-semibold text-slate-800">@Model.CustomerName</span>. We'll reach out to confirm your appointment shortly.
-        </p>
+            <!-- Status indicator -->
+            <div class="mb-8">
+                <svg class="w-10 h-10 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
 
-        <!-- Summary -->
-        <div class="bg-gray-50 rounded-xl p-5 text-left mb-8 space-y-3">
-            <div class="flex justify-between text-sm">
-                <span class="text-slate-500">Reference #</span>
-                <span class="font-semibold text-slate-800">#@Model.Id</span>
-            </div>
-            <div class="flex justify-between text-sm">
-                <span class="text-slate-500">Pest Type</span>
-                <span class="font-semibold text-slate-800">@Model.PestType.ToString().Replace("_", " ")</span>
-            </div>
-            <div class="flex justify-between text-sm">
-                <span class="text-slate-500">Service Address</span>
-                <span class="font-semibold text-slate-800 text-right max-w-[60%]">@Model.Address</span>
-            </div>
-            @if (Model.PreferredDate.HasValue)
-            {
-                <div class="flex justify-between text-sm">
-                    <span class="text-slate-500">Preferred Date</span>
-                    <span class="font-semibold text-slate-800">@Model.PreferredDate.Value.ToString("MMMM d, yyyy")</span>
+            <h1 class="text-2xl font-bold text-gray-900 mb-2">Request Received</h1>
+            <p class="text-gray-500 text-sm leading-relaxed mb-8">
+                Thank you, <span class="font-semibold text-gray-800">@Model.CustomerName</span>. We will contact you shortly to confirm your service appointment.
+            </p>
+
+            <!-- Summary -->
+            <div class="border border-gray-200 rounded">
+                <div class="px-5 py-3 border-b border-gray-100 bg-gray-50">
+                    <p class="text-xs font-semibold uppercase tracking-widest text-gray-400">Request Summary</p>
                 </div>
-            }
-            <div class="flex justify-between text-sm items-center">
-                <span class="text-slate-500">Status</span>
-                <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">New</span>
+                <dl class="divide-y divide-gray-100">
+                    <div class="flex justify-between items-center px-5 py-3 text-sm">
+                        <dt class="text-gray-500">Reference</dt>
+                        <dd class="font-medium text-gray-900">#@Model.Id</dd>
+                    </div>
+                    <div class="flex justify-between items-center px-5 py-3 text-sm">
+                        <dt class="text-gray-500">Pest Type</dt>
+                        <dd class="font-medium text-gray-900">@Model.PestType.ToString().Replace("_", " ")</dd>
+                    </div>
+                    <div class="flex justify-between items-start px-5 py-3 text-sm">
+                        <dt class="text-gray-500 shrink-0 mr-4">Service Address</dt>
+                        <dd class="font-medium text-gray-900 text-right">@Model.Address</dd>
+                    </div>
+                    @if (Model.PreferredDate.HasValue)
+                    {
+                        <div class="flex justify-between items-center px-5 py-3 text-sm">
+                            <dt class="text-gray-500">Preferred Date</dt>
+                            <dd class="font-medium text-gray-900">@Model.PreferredDate.Value.ToString("MMMM d, yyyy")</dd>
+                        </div>
+                    }
+                    <div class="flex justify-between items-center px-5 py-3 text-sm">
+                        <dt class="text-gray-500">Status</dt>
+                        <dd>
+                            <span class="inline-block text-xs font-medium px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">New</span>
+                        </dd>
+                    </div>
+                </dl>
             </div>
-        </div>
 
-        <!-- Actions -->
-        <div class="flex flex-col sm:flex-row gap-3">
-            <a asp-controller="ServiceRequest" asp-action="Create"
-               class="flex-1 bg-amber-500 hover:bg-amber-400 text-white font-semibold py-3 rounded-lg text-sm text-center transition-colors">
-                Submit Another Request
-            </a>
-            <a asp-controller="Home" asp-action="Index"
-               class="flex-1 border border-slate-300 hover:border-slate-400 text-slate-700 font-semibold py-3 rounded-lg text-sm text-center transition-colors">
-                Back to Home
-            </a>
+            <!-- Actions -->
+            <div class="mt-8 flex flex-col sm:flex-row gap-3">
+                <a asp-controller="ServiceRequest" asp-action="Create"
+                   class="flex-1 text-center bg-green-800 hover:bg-green-900 text-white font-medium py-3 rounded text-sm transition-colors">
+                    Submit Another Request
+                </a>
+                <a asp-controller="Home" asp-action="Index"
+                   class="flex-1 text-center border border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-900 font-medium py-3 rounded text-sm transition-colors">
+                    Back to Home
+                </a>
+            </div>
+
         </div>
 
     </div>
