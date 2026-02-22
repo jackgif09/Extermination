@@ -2,125 +2,94 @@
 @{
     ViewData["Title"] = $"Request #{Model.Id}";
 
-    string badgeClasses = Model.Status switch
+    string badge = Model.Status switch
     {
-        ServiceStatus.New       => "bg-blue-50 text-blue-700 border-blue-200",
-        ServiceStatus.Scheduled => "bg-amber-50 text-amber-700 border-amber-200",
-        ServiceStatus.Completed => "bg-green-50 text-green-800 border-green-200",
-        _                       => "bg-gray-50 text-gray-600 border-gray-200"
+        ServiceStatus.New       => "bg-blue-50 text-blue-600",
+        ServiceStatus.Scheduled => "bg-amber-50 text-amber-700",
+        ServiceStatus.Completed => "bg-green-50 text-green-700",
+        _                       => "bg-gray-100 text-gray-500"
     };
 }
 
-<!-- Page header -->
-<div class="bg-white border-b border-gray-200 px-6 py-10">
-    <div class="max-w-5xl mx-auto">
-        <a asp-controller="Admin" asp-action="Index"
-           class="inline-block text-xs font-medium text-gray-400 hover:text-gray-600 uppercase tracking-wide mb-5 transition-colors">
-            &larr; Back to Dashboard
-        </a>
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <div>
-                <p class="text-xs font-semibold uppercase tracking-widest text-green-800 mb-1">Request #@Model.Id</p>
-                <h1 class="text-3xl font-bold text-gray-900">@Model.CustomerName</h1>
-                <p class="text-gray-400 text-sm mt-1">Submitted @Model.CreatedAt.ToString("MMMM d, yyyy") at @Model.CreatedAt.ToString("h:mm tt") UTC</p>
-            </div>
-            <span class="self-start sm:self-auto inline-block text-sm font-medium px-3 py-1 rounded border @badgeClasses">
-                @Model.Status
-            </span>
+<div class="max-w-5xl mx-auto px-6 py-10">
+
+    <a asp-controller="Admin" asp-action="Index"
+       class="text-sm text-gray-400 hover:text-gray-700 transition-colors mb-8 inline-block">
+        &larr; All requests
+    </a>
+
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-10">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900">@Model.CustomerName</h1>
+            <p class="text-gray-400 text-sm mt-1">Submitted @Model.CreatedAt.ToString("MMMM d, yyyy")</p>
         </div>
+        <span class="self-start text-xs font-medium px-3 py-1.5 rounded-lg @badge">@Model.Status</span>
     </div>
-</div>
 
-<section class="bg-gray-50 px-6 py-10">
-    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
 
-        <!-- Request details -->
+        <!-- Details -->
         <div class="md:col-span-2">
-            <div class="bg-white border border-gray-200 rounded">
-                <div class="px-6 py-4 border-b border-gray-100">
-                    <h2 class="text-sm font-semibold text-gray-900">Request Details</h2>
+            <dl class="space-y-5 text-sm">
+                <div class="flex gap-6">
+                    <dt class="w-28 shrink-0 text-gray-400">Phone</dt>
+                    <dd><a href="tel:@Model.Phone" class="text-gray-900 hover:text-green-700 transition-colors">@Model.Phone</a></dd>
                 </div>
-                <dl class="divide-y divide-gray-100">
-                    <div class="grid grid-cols-5 px-6 py-4">
-                        <dt class="col-span-2 text-xs font-semibold uppercase tracking-wide text-gray-400 self-center">Customer</dt>
-                        <dd class="col-span-3 text-sm text-gray-900 font-medium">@Model.CustomerName</dd>
+                <div class="flex gap-6">
+                    <dt class="w-28 shrink-0 text-gray-400">Email</dt>
+                    <dd><a href="mailto:@Model.Email" class="text-gray-900 hover:text-green-700 transition-colors">@Model.Email</a></dd>
+                </div>
+                <div class="flex gap-6">
+                    <dt class="w-28 shrink-0 text-gray-400">Address</dt>
+                    <dd class="text-gray-700 leading-relaxed">@Model.Address</dd>
+                </div>
+                <div class="flex gap-6">
+                    <dt class="w-28 shrink-0 text-gray-400">Pest type</dt>
+                    <dd class="text-gray-700">@Model.PestType.ToString().Replace("_", " ")</dd>
+                </div>
+                <div class="flex gap-6">
+                    <dt class="w-28 shrink-0 text-gray-400">Preferred date</dt>
+                    <dd class="text-gray-700">
+                        @(Model.PreferredDate.HasValue ? Model.PreferredDate.Value.ToString("MMMM d, yyyy") : "Not specified")
+                    </dd>
+                </div>
+                @if (!string.IsNullOrWhiteSpace(Model.Description))
+                {
+                    <div class="flex gap-6">
+                        <dt class="w-28 shrink-0 text-gray-400 pt-0.5">Notes</dt>
+                        <dd class="text-gray-700 leading-relaxed">@Model.Description</dd>
                     </div>
-                    <div class="grid grid-cols-5 px-6 py-4">
-                        <dt class="col-span-2 text-xs font-semibold uppercase tracking-wide text-gray-400 self-center">Phone</dt>
-                        <dd class="col-span-3 text-sm">
-                            <a href="tel:@Model.Phone" class="text-green-800 hover:underline">@Model.Phone</a>
-                        </dd>
-                    </div>
-                    <div class="grid grid-cols-5 px-6 py-4">
-                        <dt class="col-span-2 text-xs font-semibold uppercase tracking-wide text-gray-400 self-center">Email</dt>
-                        <dd class="col-span-3 text-sm">
-                            <a href="mailto:@Model.Email" class="text-green-800 hover:underline">@Model.Email</a>
-                        </dd>
-                    </div>
-                    <div class="grid grid-cols-5 px-6 py-4">
-                        <dt class="col-span-2 text-xs font-semibold uppercase tracking-wide text-gray-400 self-start pt-0.5">Address</dt>
-                        <dd class="col-span-3 text-sm text-gray-700 leading-relaxed">@Model.Address</dd>
-                    </div>
-                    <div class="grid grid-cols-5 px-6 py-4">
-                        <dt class="col-span-2 text-xs font-semibold uppercase tracking-wide text-gray-400 self-center">Pest Type</dt>
-                        <dd class="col-span-3 text-sm text-gray-700">@Model.PestType.ToString().Replace("_", " ")</dd>
-                    </div>
-                    <div class="grid grid-cols-5 px-6 py-4">
-                        <dt class="col-span-2 text-xs font-semibold uppercase tracking-wide text-gray-400 self-center">Preferred Date</dt>
-                        <dd class="col-span-3 text-sm text-gray-700">
-                            @(Model.PreferredDate.HasValue ? Model.PreferredDate.Value.ToString("MMMM d, yyyy") : "Not specified")
-                        </dd>
-                    </div>
-                    <div class="grid grid-cols-5 px-6 py-4">
-                        <dt class="col-span-2 text-xs font-semibold uppercase tracking-wide text-gray-400 self-center">Status</dt>
-                        <dd class="col-span-3">
-                            <span class="inline-block text-xs font-medium px-2 py-0.5 rounded border @badgeClasses">@Model.Status</span>
-                        </dd>
-                    </div>
-                    @if (!string.IsNullOrWhiteSpace(Model.Description))
-                    {
-                        <div class="px-6 py-4">
-                            <dt class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-3">Description</dt>
-                            <dd class="text-sm text-gray-700 leading-relaxed bg-gray-50 border border-gray-100 rounded px-4 py-3">@Model.Description</dd>
-                        </div>
-                    }
-                </dl>
-            </div>
+                }
+            </dl>
         </div>
 
-        <!-- Actions panel -->
-        <div class="space-y-4">
-            <div class="bg-white border border-gray-200 rounded">
-                <div class="px-6 py-4 border-b border-gray-100">
-                    <h2 class="text-sm font-semibold text-gray-900">Update Status</h2>
-                </div>
-                <div class="px-6 py-5">
-                    <form asp-action="UpdateStatus" asp-controller="Admin" method="post">
-                        @Html.AntiForgeryToken()
-                        <input type="hidden" name="id" value="@Model.Id" />
-                        <label class="block text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">Status</label>
-                        <select name="status"
-                                class="w-full border border-gray-300 rounded px-3 py-2.5 text-gray-900 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-green-800 focus:border-green-800 transition mb-4">
-                            @foreach (var s in Enum.GetValues<ServiceStatus>())
-                            {
-                                if (s == Model.Status)
-                                {
-                                    <option value="@s" selected>@s</option>
-                                }
-                                else
-                                {
-                                    <option value="@s">@s</option>
-                                }
-                            }
-                        </select>
-                        <button type="submit"
-                                class="w-full bg-green-800 hover:bg-green-900 text-white font-medium py-2.5 rounded text-sm transition-colors">
-                            Save Status
-                        </button>
-                    </form>
-                </div>
-            </div>
+        <!-- Status update -->
+        <div>
+            <h2 class="text-sm font-semibold text-gray-900 mb-4">Update status</h2>
+            <form asp-action="UpdateStatus" asp-controller="Admin" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@Model.Id" />
+                <select name="status"
+                        class="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:border-green-600 transition mb-3">
+                    @foreach (var s in Enum.GetValues<ServiceStatus>())
+                    {
+                        if (s == Model.Status)
+                        {
+                            <option value="@s" selected>@s</option>
+                        }
+                        else
+                        {
+                            <option value="@s">@s</option>
+                        }
+                    }
+                </select>
+                <button type="submit"
+                        class="w-full bg-green-700 hover:bg-green-800 text-white font-medium py-3 rounded-xl text-sm transition-colors">
+                    Save
+                </button>
+            </form>
         </div>
 
     </div>
-</section>
+
+</div>

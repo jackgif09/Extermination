@@ -8,50 +8,49 @@
 </head>
 <body class="bg-white text-gray-900 min-h-screen flex flex-col">
 
-    <!-- Navigation -->
-    <header class="sticky top-0 z-50 bg-white border-b border-gray-200">
-        <div class="max-w-6xl mx-auto px-6">
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-100">
+        <div class="max-w-5xl mx-auto px-6">
             <div class="flex items-center justify-between h-16">
 
                 <a asp-controller="Home" asp-action="Index"
-                   class="font-bold text-gray-900 text-lg tracking-tight hover:text-green-800 transition-colors">
+                   class="font-semibold text-gray-900 hover:text-green-700 transition-colors">
                     BugOff Exterminators
                 </a>
 
                 <nav class="hidden md:flex items-center gap-8">
                     <a asp-controller="Home" asp-action="Index"
-                       class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Home</a>
+                       class="text-sm text-gray-500 hover:text-gray-900 transition-colors">Home</a>
                     <a asp-controller="Home" asp-action="About"
-                       class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">About</a>
+                       class="text-sm text-gray-500 hover:text-gray-900 transition-colors">About</a>
                     <a asp-controller="Admin" asp-action="Index"
-                       class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Admin</a>
+                       class="text-sm text-gray-500 hover:text-gray-900 transition-colors">Admin</a>
                     <a asp-controller="ServiceRequest" asp-action="Create"
-                       class="bg-green-800 hover:bg-green-900 text-white text-sm font-medium px-5 py-2 rounded transition-colors">
+                       class="bg-green-700 hover:bg-green-800 text-white text-sm font-medium px-5 py-2 rounded-xl transition-colors">
                         Request Service
                     </a>
                 </nav>
 
                 <button id="menu-toggle"
-                        class="md:hidden text-gray-500 hover:text-gray-900 focus:outline-none"
+                        class="md:hidden text-gray-400 hover:text-gray-700 focus:outline-none"
                         aria-label="Toggle navigation" aria-expanded="false">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                        <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                               d="M4 6h16M4 12h16M4 18h16" />
-                        <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                        <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                               d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
 
-            <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 py-4 flex flex-col gap-4">
+            <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 py-5 flex flex-col gap-4">
                 <a asp-controller="Home" asp-action="Index"
-                   class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Home</a>
+                   class="text-sm text-gray-600 hover:text-gray-900 transition-colors">Home</a>
                 <a asp-controller="Home" asp-action="About"
-                   class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">About</a>
+                   class="text-sm text-gray-600 hover:text-gray-900 transition-colors">About</a>
                 <a asp-controller="Admin" asp-action="Index"
-                   class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Admin</a>
+                   class="text-sm text-gray-600 hover:text-gray-900 transition-colors">Admin</a>
                 <a asp-controller="ServiceRequest" asp-action="Create"
-                   class="bg-green-800 hover:bg-green-900 text-white text-sm font-medium px-5 py-2.5 rounded text-center transition-colors">
+                   class="bg-green-700 hover:bg-green-800 text-white text-sm font-medium px-5 py-2.5 rounded-xl text-center transition-colors">
                     Request Service
                 </a>
             </div>
@@ -62,25 +61,25 @@
         @RenderBody()
     </main>
 
-    <footer class="bg-gray-900 text-gray-400">
-        <div class="max-w-6xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-3 gap-10">
+    <footer class="bg-gray-900 text-gray-400 mt-auto">
+        <div class="max-w-5xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
-                <p class="text-white font-semibold text-base mb-3">BugOff Exterminators</p>
-                <p class="text-sm leading-relaxed">Licensed, insured pest control serving central Illinois since 2008. We stand behind every treatment we perform.</p>
+                <p class="text-white font-medium mb-2">BugOff Exterminators</p>
+                <p class="text-sm leading-relaxed">Licensed, insured pest control for central Illinois homes and businesses since 2008.</p>
             </div>
             <div>
-                <p class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-4">Contact</p>
-                <p class="text-sm mb-2"><a href="tel:5551234567" class="hover:text-white transition-colors">(555) 123-4567</a></p>
-                <p class="text-sm mb-2"><a href="mailto:info@bugoff.com" class="hover:text-white transition-colors">info@bugoff.com</a></p>
+                <p class="text-sm font-medium text-gray-300 mb-3">Contact</p>
+                <p class="text-sm mb-1.5"><a href="tel:5551234567" class="hover:text-white transition-colors">(555) 123-4567</a></p>
+                <p class="text-sm mb-1.5"><a href="mailto:info@bugoff.com" class="hover:text-white transition-colors">info@bugoff.com</a></p>
                 <p class="text-sm text-gray-500">Mon&ndash;Sat, 7am&ndash;7pm</p>
             </div>
             <div>
-                <p class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-4">Service Area</p>
-                <p class="text-sm leading-relaxed">Springfield, Shelbyville, Capital City, and surrounding communities throughout central Illinois.</p>
+                <p class="text-sm font-medium text-gray-300 mb-3">Service Area</p>
+                <p class="text-sm leading-relaxed">Springfield, Shelbyville, Capital City, and surrounding central Illinois communities.</p>
             </div>
         </div>
-        <div class="border-t border-gray-800 py-5 text-center text-xs text-gray-600">
-            &copy; @DateTime.Now.Year BugOff Exterminators. All rights reserved.
+        <div class="border-t border-gray-800 py-4 text-center text-xs text-gray-600">
+            &copy; @DateTime.Now.Year BugOff Exterminators
         </div>
     </footer>
 

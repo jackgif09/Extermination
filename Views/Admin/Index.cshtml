@@ -1,110 +1,82 @@
 @model AdminIndexViewModel
 @{
-    ViewData["Title"] = "Admin Dashboard";
+    ViewData["Title"] = "Dashboard";
 }
 
 @functions {
-    string BadgeClasses(ServiceStatus status) => status switch
+    string Badge(ServiceStatus s) => s switch
     {
-        ServiceStatus.New       => "bg-blue-50 text-blue-700 border-blue-200",
-        ServiceStatus.Scheduled => "bg-amber-50 text-amber-700 border-amber-200",
-        ServiceStatus.Completed => "bg-green-50 text-green-800 border-green-200",
-        _                       => "bg-gray-50 text-gray-600 border-gray-200"
+        ServiceStatus.New       => "bg-blue-50 text-blue-600",
+        ServiceStatus.Scheduled => "bg-amber-50 text-amber-700",
+        ServiceStatus.Completed => "bg-green-50 text-green-700",
+        _                       => "bg-gray-100 text-gray-500"
     };
 }
 
-<!-- Page header -->
-<div class="bg-white border-b border-gray-200 px-6 py-10">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+<div class="max-w-6xl mx-auto px-6 py-10">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
         <div>
-            <p class="text-xs font-semibold uppercase tracking-widest text-green-800 mb-2">Admin</p>
-            <h1 class="text-3xl font-bold text-gray-900">Service Requests</h1>
+            <h1 class="text-2xl font-bold text-gray-900">Service Requests</h1>
+            <p class="text-gray-400 text-sm mt-1">
+                @Model.TotalCount total &middot;
+                @Model.NewCount new &middot;
+                @Model.ScheduledCount scheduled &middot;
+                @Model.CompletedCount completed
+            </p>
         </div>
         <a asp-controller="ServiceRequest" asp-action="Create"
-           class="self-start sm:self-auto bg-green-800 hover:bg-green-900 text-white text-sm font-medium px-5 py-2.5 rounded transition-colors">
+           class="self-start bg-green-700 hover:bg-green-800 text-white text-sm font-medium px-5 py-2.5 rounded-xl transition-colors">
             New Request
         </a>
     </div>
-</div>
 
-<div class="bg-gray-50 px-6 py-10 min-h-full">
-    <div class="max-w-6xl mx-auto">
-
-        <!-- Stat cards -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-            <div class="bg-white border border-gray-200 rounded p-5">
-                <p class="text-2xl font-bold text-gray-900">@Model.TotalCount</p>
-                <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mt-1">Total</p>
-            </div>
-            <div class="bg-white border border-gray-200 rounded p-5 border-t-2 border-t-blue-500">
-                <p class="text-2xl font-bold text-gray-900">@Model.NewCount</p>
-                <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mt-1">New</p>
-            </div>
-            <div class="bg-white border border-gray-200 rounded p-5 border-t-2 border-t-amber-500">
-                <p class="text-2xl font-bold text-gray-900">@Model.ScheduledCount</p>
-                <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mt-1">Scheduled</p>
-            </div>
-            <div class="bg-white border border-gray-200 rounded p-5 border-t-2 border-t-green-700">
-                <p class="text-2xl font-bold text-gray-900">@Model.CompletedCount</p>
-                <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mt-1">Completed</p>
-            </div>
+    <!-- Table -->
+    @if (!Model.Requests.Any())
+    {
+        <p class="text-gray-400 py-12 text-center">No requests yet. <a asp-controller="ServiceRequest" asp-action="Create" class="text-green-700 hover:underline">Add the first one.</a></p>
+    }
+    else
+    {
+        <div class="overflow-x-auto rounded-2xl border border-gray-100">
+            <table class="w-full text-sm text-left bg-white">
+                <thead>
+                    <tr class="border-b border-gray-100 text-gray-400 text-xs">
+                        <th class="px-5 py-3.5 font-medium">#</th>
+                        <th class="px-5 py-3.5 font-medium">Customer</th>
+                        <th class="px-5 py-3.5 font-medium hidden sm:table-cell">Phone</th>
+                        <th class="px-5 py-3.5 font-medium">Pest</th>
+                        <th class="px-5 py-3.5 font-medium">Status</th>
+                        <th class="px-5 py-3.5 font-medium hidden md:table-cell">Preferred Date</th>
+                        <th class="px-5 py-3.5 font-medium hidden lg:table-cell">Submitted</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-50">
+                    @foreach (var r in Model.Requests)
+                    {
+                        <tr class="hover:bg-gray-50 cursor-pointer transition-colors"
+                            onclick="window.location='/Admin/Details/@r.Id'">
+                            <td class="px-5 py-4 text-gray-300 text-xs">@r.Id</td>
+                            <td class="px-5 py-4 font-medium text-gray-900">@r.CustomerName</td>
+                            <td class="px-5 py-4 text-gray-500 hidden sm:table-cell">@r.Phone</td>
+                            <td class="px-5 py-4 text-gray-600">@r.PestType.ToString().Replace("_", " ")</td>
+                            <td class="px-5 py-4">
+                                <span class="text-xs font-medium px-2.5 py-1 rounded-lg @Badge(r.Status)">
+                                    @r.Status
+                                </span>
+                            </td>
+                            <td class="px-5 py-4 text-gray-400 hidden md:table-cell">
+                                @(r.PreferredDate.HasValue ? r.PreferredDate.Value.ToString("MMM d, yyyy") : "—")
+                            </td>
+                            <td class="px-5 py-4 text-gray-400 text-xs hidden lg:table-cell">
+                                @r.CreatedAt.ToString("MMM d, yyyy")
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
+    }
 
-        <!-- Table -->
-        @if (!Model.Requests.Any())
-        {
-            <div class="bg-white border border-gray-200 rounded p-12 text-center">
-                <p class="font-medium text-gray-900 mb-1">No service requests yet</p>
-                <p class="text-sm text-gray-400 mb-5">Submitted requests will appear here.</p>
-                <a asp-controller="ServiceRequest" asp-action="Create"
-                   class="inline-block text-sm font-medium text-green-800 hover:text-green-900 underline underline-offset-2">
-                    Submit the first request
-                </a>
-            </div>
-        }
-        else
-        {
-            <div class="bg-white border border-gray-200 rounded overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left text-gray-700">
-                        <thead>
-                            <tr class="border-b border-gray-200 bg-gray-50">
-                                <th class="px-5 py-3.5 text-xs font-semibold uppercase tracking-wide text-gray-500">#</th>
-                                <th class="px-5 py-3.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Customer</th>
-                                <th class="px-5 py-3.5 text-xs font-semibold uppercase tracking-wide text-gray-500 hidden sm:table-cell">Phone</th>
-                                <th class="px-5 py-3.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Pest Type</th>
-                                <th class="px-5 py-3.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Status</th>
-                                <th class="px-5 py-3.5 text-xs font-semibold uppercase tracking-wide text-gray-500 hidden md:table-cell">Preferred Date</th>
-                                <th class="px-5 py-3.5 text-xs font-semibold uppercase tracking-wide text-gray-500 hidden lg:table-cell">Submitted</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-100">
-                            @foreach (var r in Model.Requests)
-                            {
-                                <tr class="hover:bg-gray-50 cursor-pointer transition-colors"
-                                    onclick="window.location='/Admin/Details/@r.Id'">
-                                    <td class="px-5 py-4 text-gray-400 font-mono text-xs">@r.Id</td>
-                                    <td class="px-5 py-4 font-medium text-gray-900">@r.CustomerName</td>
-                                    <td class="px-5 py-4 text-gray-500 hidden sm:table-cell">@r.Phone</td>
-                                    <td class="px-5 py-4 text-gray-600">@r.PestType.ToString().Replace("_", " ")</td>
-                                    <td class="px-5 py-4">
-                                        <span class="inline-block text-xs font-medium px-2 py-0.5 rounded border @BadgeClasses(r.Status)">
-                                            @r.Status
-                                        </span>
-                                    </td>
-                                    <td class="px-5 py-4 text-gray-500 hidden md:table-cell">
-                                        @(r.PreferredDate.HasValue ? r.PreferredDate.Value.ToString("MMM d, yyyy") : "—")
-                                    </td>
-                                    <td class="px-5 py-4 text-gray-400 text-xs hidden lg:table-cell">
-                                        @r.CreatedAt.ToString("MMM d, yyyy")
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        }
-
-    </div>
 </div>

@@ -4,79 +4,45 @@
 }
 
 <!-- Hero -->
-<section class="bg-gray-900 text-white px-6 py-28">
-    <div class="max-w-4xl mx-auto">
-        <p class="text-xs font-semibold uppercase tracking-widest text-green-500 mb-6">Licensed &amp; Insured</p>
-        <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6">
-            Professional Pest Control<br class="hidden md:block" /> You Can Count On.
-        </h1>
-        <p class="text-gray-400 text-lg md:text-xl max-w-2xl leading-relaxed mb-10">
-            Serving central Illinois homes and businesses since 2008. Fast response, guaranteed results, and treatments that are safe for your family.
+<section class="px-6 py-24 max-w-5xl mx-auto">
+    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-snug mb-5">
+        Pest problems?<br />We can help.
+    </h1>
+    <p class="text-gray-500 text-lg leading-relaxed max-w-xl mb-8">
+        BugOff Exterminators has been keeping central Illinois homes and businesses pest-free since 2008. Fast, friendly, and guaranteed.
+    </p>
+    <a asp-controller="ServiceRequest" asp-action="Create"
+       class="inline-block bg-green-700 hover:bg-green-800 text-white font-medium px-7 py-3.5 rounded-xl text-sm transition-colors">
+        Request a Visit
+    </a>
+    <p class="mt-4 text-sm text-gray-400">
+        Or call us at <a href="tel:5551234567" class="text-gray-600 hover:text-green-700 transition-colors">(555) 123-4567</a>
+    </p>
+</section>
+
+<!-- What we do -->
+<section class="px-6 pb-24 max-w-5xl mx-auto">
+    <div class="border-t border-gray-100 pt-16">
+
+        <h2 class="text-xl font-semibold text-gray-900 mb-3">Pests we treat</h2>
+        <p class="text-gray-500 leading-relaxed mb-16">
+            Ants &middot; Bed Bugs &middot; Cockroaches &middot; Fleas &middot; Mosquitoes &middot; Rodents &middot; Spiders &middot; Termites &middot; Wasps &middot; and more
         </p>
-        <div class="flex flex-col sm:flex-row gap-4">
-            <a asp-controller="ServiceRequest" asp-action="Create"
-               class="inline-block bg-green-700 hover:bg-green-600 text-white font-medium px-8 py-4 rounded text-sm transition-colors">
-                Request a Service Visit
-            </a>
-            <a asp-controller="Home" asp-action="About"
-               class="inline-block border border-gray-600 hover:border-gray-400 text-gray-300 hover:text-white font-medium px-8 py-4 rounded text-sm transition-colors">
-                Learn About Us
-            </a>
-        </div>
-    </div>
-</section>
 
-<!-- What we treat -->
-<section class="bg-white px-6 py-20">
-    <div class="max-w-5xl mx-auto">
-        <div class="mb-12">
-            <p class="text-xs font-semibold uppercase tracking-widest text-green-800 mb-3">What We Treat</p>
-            <h2 class="text-3xl font-bold text-gray-900">Common pests handled quickly and safely.</h2>
-        </div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-px bg-gray-200 border border-gray-200">
-            @foreach (var label in new[] { "Ants", "Bed Bugs", "Cockroaches", "Fleas", "Mosquitoes", "Rodents", "Spiders", "Termites", "Wasps", "Other" })
-            {
-                <div class="bg-white px-5 py-6 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
-                    @label
-                </div>
-            }
-        </div>
-        <p class="text-sm text-gray-400 mt-4">Not seeing your pest? Call us&mdash;we handle nearly every residential and commercial infestation.</p>
-    </div>
-</section>
-
-<!-- Why choose us -->
-<section class="bg-gray-50 px-6 py-20 border-t border-gray-100">
-    <div class="max-w-5xl mx-auto">
-        <div class="mb-14">
-            <p class="text-xs font-semibold uppercase tracking-widest text-green-800 mb-3">Why BugOff</p>
-            <h2 class="text-3xl font-bold text-gray-900">What sets us apart.</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div class="border-t-2 border-green-800 pt-6">
-                <h3 class="font-semibold text-gray-900 text-lg mb-3">Licensed &amp; Insured</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">Every technician on our team is state-certified, background-checked, and fully insured. You are always in safe hands.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div>
+                <h3 class="font-semibold text-gray-900 mb-2">Licensed &amp; Insured</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Every technician is state-certified and fully insured. You are always in good hands.</p>
             </div>
-            <div class="border-t-2 border-green-800 pt-6">
-                <h3 class="font-semibold text-gray-900 text-lg mb-3">Same-Day Response</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">We know pest problems can't wait. Most requests are scheduled within 24 hours, often the same day you contact us.</p>
+            <div>
+                <h3 class="font-semibold text-gray-900 mb-2">Same-Day Response</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Most requests are scheduled within 24 hours. We know pest problems can't wait.</p>
             </div>
-            <div class="border-t-2 border-green-800 pt-6">
-                <h3 class="font-semibold text-gray-900 text-lg mb-3">Eco-Friendly Treatments</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">Our integrated pest management approach minimizes chemical use while delivering reliable, lasting results for your home.</p>
+            <div>
+                <h3 class="font-semibold text-gray-900 mb-2">Safe for Your Family</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Our treatments are low-impact and eco-friendly&mdash;effective on pests, gentle on people and pets.</p>
             </div>
         </div>
-    </div>
-</section>
 
-<!-- CTA -->
-<section class="bg-white px-6 py-20 border-t border-gray-100">
-    <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-3xl font-bold text-gray-900 mb-4">Ready to get started?</h2>
-        <p class="text-gray-500 mb-8 leading-relaxed">Fill out our service request form and we will contact you within the hour to confirm your appointment.</p>
-        <a asp-controller="ServiceRequest" asp-action="Create"
-           class="inline-block bg-green-800 hover:bg-green-900 text-white font-medium px-8 py-4 rounded text-sm transition-colors">
-            Request Service
-        </a>
     </div>
 </section>

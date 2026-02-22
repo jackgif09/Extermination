@@ -3,70 +3,46 @@
     ViewData["Title"] = "Request Submitted";
 }
 
-<section class="bg-gray-50 px-6 py-16">
-    <div class="max-w-lg mx-auto">
+<div class="max-w-md mx-auto px-6 py-20 text-center">
 
-        <div class="bg-white border border-gray-200 rounded p-10">
+    <svg class="w-10 h-10 text-green-600 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
 
-            <!-- Status indicator -->
-            <div class="mb-8">
-                <svg class="w-10 h-10 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-            </div>
+    <h1 class="text-2xl font-bold text-gray-900 mb-3">You're all set, @Model.CustomerName.</h1>
+    <p class="text-gray-500 leading-relaxed mb-10">
+        We've received your request and will call or email you within the hour to confirm your appointment.
+    </p>
 
-            <h1 class="text-2xl font-bold text-gray-900 mb-2">Request Received</h1>
-            <p class="text-gray-500 text-sm leading-relaxed mb-8">
-                Thank you, <span class="font-semibold text-gray-800">@Model.CustomerName</span>. We will contact you shortly to confirm your service appointment.
-            </p>
-
-            <!-- Summary -->
-            <div class="border border-gray-200 rounded">
-                <div class="px-5 py-3 border-b border-gray-100 bg-gray-50">
-                    <p class="text-xs font-semibold uppercase tracking-widest text-gray-400">Request Summary</p>
-                </div>
-                <dl class="divide-y divide-gray-100">
-                    <div class="flex justify-between items-center px-5 py-3 text-sm">
-                        <dt class="text-gray-500">Reference</dt>
-                        <dd class="font-medium text-gray-900">#@Model.Id</dd>
-                    </div>
-                    <div class="flex justify-between items-center px-5 py-3 text-sm">
-                        <dt class="text-gray-500">Pest Type</dt>
-                        <dd class="font-medium text-gray-900">@Model.PestType.ToString().Replace("_", " ")</dd>
-                    </div>
-                    <div class="flex justify-between items-start px-5 py-3 text-sm">
-                        <dt class="text-gray-500 shrink-0 mr-4">Service Address</dt>
-                        <dd class="font-medium text-gray-900 text-right">@Model.Address</dd>
-                    </div>
-                    @if (Model.PreferredDate.HasValue)
-                    {
-                        <div class="flex justify-between items-center px-5 py-3 text-sm">
-                            <dt class="text-gray-500">Preferred Date</dt>
-                            <dd class="font-medium text-gray-900">@Model.PreferredDate.Value.ToString("MMMM d, yyyy")</dd>
-                        </div>
-                    }
-                    <div class="flex justify-between items-center px-5 py-3 text-sm">
-                        <dt class="text-gray-500">Status</dt>
-                        <dd>
-                            <span class="inline-block text-xs font-medium px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">New</span>
-                        </dd>
-                    </div>
-                </dl>
-            </div>
-
-            <!-- Actions -->
-            <div class="mt-8 flex flex-col sm:flex-row gap-3">
-                <a asp-controller="ServiceRequest" asp-action="Create"
-                   class="flex-1 text-center bg-green-800 hover:bg-green-900 text-white font-medium py-3 rounded text-sm transition-colors">
-                    Submit Another Request
-                </a>
-                <a asp-controller="Home" asp-action="Index"
-                   class="flex-1 text-center border border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-900 font-medium py-3 rounded text-sm transition-colors">
-                    Back to Home
-                </a>
-            </div>
-
+    <dl class="text-left space-y-3 mb-10">
+        <div class="flex justify-between text-sm">
+            <dt class="text-gray-400">Reference</dt>
+            <dd class="text-gray-700 font-medium">#@Model.Id</dd>
         </div>
+        <div class="flex justify-between text-sm">
+            <dt class="text-gray-400">Pest type</dt>
+            <dd class="text-gray-700 font-medium">@Model.PestType.ToString().Replace("_", " ")</dd>
+        </div>
+        <div class="flex justify-between text-sm gap-4">
+            <dt class="text-gray-400 shrink-0">Address</dt>
+            <dd class="text-gray-700 font-medium text-right">@Model.Address</dd>
+        </div>
+        @if (Model.PreferredDate.HasValue)
+        {
+            <div class="flex justify-between text-sm">
+                <dt class="text-gray-400">Preferred date</dt>
+                <dd class="text-gray-700 font-medium">@Model.PreferredDate.Value.ToString("MMMM d, yyyy")</dd>
+            </div>
+        }
+    </dl>
 
-    </div>
-</section>
+    <a asp-controller="Home" asp-action="Index"
+       class="inline-block bg-green-700 hover:bg-green-800 text-white font-medium px-7 py-3.5 rounded-xl text-sm transition-colors">
+        Back to Home
+    </a>
+    <p class="mt-4 text-sm text-gray-400">
+        <a asp-controller="ServiceRequest" asp-action="Create"
+           class="hover:text-gray-600 underline underline-offset-2 transition-colors">Submit another request</a>
+    </p>
+
+</div>

@@ -1,83 +1,56 @@
 @{
-    ViewData["Title"] = "About Us";
+    ViewData["Title"] = "About";
 }
 
-<!-- Page header -->
-<div class="bg-white border-b border-gray-200 px-6 py-12">
-    <div class="max-w-5xl mx-auto">
-        <p class="text-xs font-semibold uppercase tracking-widest text-green-800 mb-3">About Us</p>
-        <h1 class="text-4xl font-bold text-gray-900">BugOff Exterminators</h1>
-        <p class="text-gray-500 mt-2 text-lg">Family-owned. Community-trusted. Pest-free guaranteed.</p>
-    </div>
-</div>
+<div class="max-w-5xl mx-auto px-6 py-16">
 
-<!-- Company story + contact -->
-<section class="bg-white px-6 py-16">
-    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">About Us</h1>
+    <p class="text-gray-500 mb-14">Family-owned and community-trusted since 2008.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
 
         <div>
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Our Story</h2>
             <p class="text-gray-600 leading-relaxed mb-5">
-                BugOff Exterminators was founded in 2008 by the Rodriguez family with a simple mission: give every homeowner access to professional, affordable, and environmentally responsible pest control.
+                BugOff Exterminators was founded by the Rodriguez family with a simple goal: give every homeowner access to professional, affordable, and responsible pest control.
             </p>
             <p class="text-gray-600 leading-relaxed mb-5">
-                What started as a two-person operation serving Springfield has grown into a trusted regional provider covering dozens of communities across central Illinois. We have helped thousands of families rest easier knowing their homes are protected.
+                What started as a two-person operation in Springfield has grown into a trusted regional provider serving dozens of communities across central Illinois. We have helped thousands of families rest easier knowing their homes are protected.
             </p>
             <p class="text-gray-600 leading-relaxed">
-                Every technician on our team is state-licensed, background-checked, and trained in integrated pest management (IPM) techniques that minimize chemical use while maximizing results.
+                Every technician is state-licensed, background-checked, and trained in integrated pest management techniques that minimize chemical use while delivering lasting results.
             </p>
         </div>
 
-        <div class="border border-gray-200 rounded p-8">
-            <h2 class="text-xl font-bold text-gray-900 mb-8">Contact Us</h2>
-            <dl class="space-y-6">
+        <div>
+            <h2 class="text-lg font-semibold text-gray-900 mb-6">Get in touch</h2>
+            <dl class="space-y-5">
                 <div>
-                    <dt class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">Phone</dt>
-                    <dd class="text-gray-900 font-medium">
-                        <a href="tel:5551234567" class="hover:text-green-800 transition-colors">(555) 123-4567</a>
+                    <dt class="text-sm text-gray-400 mb-0.5">Phone</dt>
+                    <dd class="text-gray-900">
+                        <a href="tel:5551234567" class="hover:text-green-700 transition-colors">(555) 123-4567</a>
+                        <span class="text-gray-400 text-sm ml-2">Mon&ndash;Sat, 7am&ndash;7pm</span>
                     </dd>
-                    <dd class="text-sm text-gray-400 mt-0.5">Mon&ndash;Sat, 7am&ndash;7pm</dd>
                 </div>
                 <div>
-                    <dt class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">Email</dt>
-                    <dd class="text-gray-900 font-medium">
-                        <a href="mailto:info@bugoff.com" class="hover:text-green-800 transition-colors">info@bugoff.com</a>
+                    <dt class="text-sm text-gray-400 mb-0.5">Email</dt>
+                    <dd class="text-gray-900">
+                        <a href="mailto:info@bugoff.com" class="hover:text-green-700 transition-colors">info@bugoff.com</a>
+                        <span class="text-gray-400 text-sm ml-2">We reply within 2 hours</span>
                     </dd>
-                    <dd class="text-sm text-gray-400 mt-0.5">We reply within 2 hours</dd>
                 </div>
                 <div>
-                    <dt class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">Service Area</dt>
-                    <dd class="text-gray-700 text-sm leading-relaxed">Springfield, Shelbyville, Capital City, and surrounding communities in central Illinois.</dd>
+                    <dt class="text-sm text-gray-400 mb-0.5">Service area</dt>
+                    <dd class="text-gray-600 text-sm leading-relaxed">Springfield, Shelbyville, Capital City, and surrounding communities in central Illinois.</dd>
                 </div>
             </dl>
-            <div class="mt-8 pt-6 border-t border-gray-100">
+            <div class="mt-10">
                 <a asp-controller="ServiceRequest" asp-action="Create"
-                   class="block w-full text-center bg-green-800 hover:bg-green-900 text-white font-medium py-3 rounded text-sm transition-colors">
+                   class="inline-block bg-green-700 hover:bg-green-800 text-white font-medium px-7 py-3.5 rounded-xl text-sm transition-colors">
                     Request a Service Visit
                 </a>
             </div>
         </div>
 
     </div>
-</section>
 
-<!-- Guarantees -->
-<section class="bg-gray-50 border-t border-gray-100 px-6 py-16">
-    <div class="max-w-5xl mx-auto">
-        <h2 class="text-2xl font-bold text-gray-900 mb-12">Our Guarantees</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-            @foreach (var item in new[] {
-                new { Title = "Licensed &amp; Insured", Desc = "Fully covered so you have complete peace of mind." },
-                new { Title = "Eco-Friendly", Desc = "Low-impact treatments, safe for children and pets." },
-                new { Title = "Satisfaction Guarantee", Desc = "We return at no charge if pests come back." },
-                new { Title = "Rapid Response", Desc = "Same-day or next-day scheduling on most requests." }
-            })
-            {
-                <div class="border-t-2 border-green-800 pt-5">
-                    <h3 class="font-semibold text-gray-900 text-sm mb-2">@Html.Raw(item.Title)</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">@item.Desc</p>
-                </div>
-            }
-        </div>
-    </div>
-</section>
+</div>
