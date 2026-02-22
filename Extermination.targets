@@ -1,0 +1,5 @@
+<Project>
+  <Target Name="BuildTailwind" BeforeTargets="Build">
+    <Exec Command="npm run css:build" />
+  </Target>
+</Project>
