@@ -1,8 +1,89 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Home";
+    Layout = "_Layout";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Hero -->
+<section class="bg-green-700 text-white py-24 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-4 leading-tight">
+            Pests Don't Stand<br class="hidden sm:block" /> a Chance.
+        </h1>
+        <p class="text-xl md:text-2xl text-green-100 mb-10 max-w-2xl mx-auto">
+            Fast, eco-friendly pest control for your home and business. Licensed technicians. Guaranteed results.
+        </p>
+        <a asp-controller="ServiceRequest" asp-action="Create"
+           class="inline-block bg-amber-500 hover:bg-amber-400 text-white font-bold px-10 py-4 rounded-xl text-lg shadow-lg transition-colors">
+            Request Service &rarr;
+        </a>
+    </div>
+</section>
+
+<!-- Pest types we handle -->
+<section class="py-16 bg-gray-50 px-4">
+    <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl font-bold text-slate-900 text-center mb-2">Pests We Treat</h2>
+        <p class="text-slate-500 text-center mb-10">We handle virtually every common pest — quickly and safely.</p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            @foreach (var pest in new[] {
+                new { Emoji = "🐜", Label = "Ants" },
+                new { Emoji = "🐛", Label = "Bed Bugs" },
+                new { Emoji = "🪳", Label = "Cockroaches" },
+                new { Emoji = "🦟", Label = "Fleas" },
+                new { Emoji = "🦟", Label = "Mosquitoes" },
+                new { Emoji = "🐀", Label = "Rodents" },
+                new { Emoji = "🕷️", Label = "Spiders" },
+                new { Emoji = "🪲", Label = "Termites" },
+                new { Emoji = "🐝", Label = "Wasps" },
+                new { Emoji = "🐞", Label = "Other" }
+            })
+            {
+                <div class="bg-white rounded-xl shadow-sm p-5 flex flex-col items-center gap-2 hover:shadow-md transition-shadow">
+                    <span class="text-4xl">@pest.Emoji</span>
+                    <span class="text-sm font-medium text-slate-700">@pest.Label</span>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Why choose us -->
+<section class="py-16 bg-white px-4">
+    <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl font-bold text-slate-900 text-center mb-2">Why BugOff?</h2>
+        <p class="text-slate-500 text-center mb-12">We do things right — for your family, your home, and the environment.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="flex flex-col items-center text-center gap-3">
+                <div class="bg-green-100 rounded-full p-4">
+                    <span class="text-3xl">🏅</span>
+                </div>
+                <h3 class="text-lg font-semibold text-slate-900">Licensed & Insured</h3>
+                <p class="text-sm text-slate-500">All technicians are state-certified and fully insured. Your home is in safe hands.</p>
+            </div>
+            <div class="flex flex-col items-center text-center gap-3">
+                <div class="bg-green-100 rounded-full p-4">
+                    <span class="text-3xl">⚡</span>
+                </div>
+                <h3 class="text-lg font-semibold text-slate-900">Same-Day Service</h3>
+                <p class="text-sm text-slate-500">Most requests are scheduled within 24 hours. We know pests can't wait.</p>
+            </div>
+            <div class="flex flex-col items-center text-center gap-3">
+                <div class="bg-green-100 rounded-full p-4">
+                    <span class="text-3xl">🌿</span>
+                </div>
+                <h3 class="text-lg font-semibold text-slate-900">Eco-Friendly Methods</h3>
+                <p class="text-sm text-slate-500">We use low-impact treatments that are tough on pests and gentle on your family and pets.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA banner -->
+<section class="bg-green-800 text-white py-14 px-4 text-center">
+    <h2 class="text-3xl font-bold mb-3">Ready to reclaim your home?</h2>
+    <p class="text-green-200 mb-8">Fill out our quick request form and we'll be in touch within the hour.</p>
+    <a asp-controller="ServiceRequest" asp-action="Create"
+       class="inline-block bg-amber-500 hover:bg-amber-400 text-white font-bold px-10 py-4 rounded-xl text-lg shadow-lg transition-colors">
+        Get Started &rarr;
+    </a>
+</section>

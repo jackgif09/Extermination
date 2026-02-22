@@ -1,0 +1,92 @@
+@{
+    ViewData["Title"] = "About Us";
+}
+
+<!-- Page header -->
+<section class="bg-green-700 text-white py-12 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl font-extrabold mb-2">About BugOff Exterminators</h1>
+        <p class="text-green-200 text-lg">Family-owned. Community-trusted. Pest-free guaranteed.</p>
+    </div>
+</section>
+
+<!-- Company story + contact -->
+<section class="py-14 px-4">
+    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+
+        <!-- Story -->
+        <div>
+            <h2 class="text-2xl font-bold text-slate-900 mb-4">Our Story</h2>
+            <p class="text-slate-600 mb-4">
+                BugOff Exterminators was founded in 2008 by the Rodriguez family with a simple mission: give every homeowner access to professional, affordable, and environmentally responsible pest control.
+            </p>
+            <p class="text-slate-600 mb-4">
+                What started as a two-person operation serving Springfield has grown into a trusted regional provider covering dozens of communities across central Illinois. We've helped thousands of families sleep easier, knowing their homes are protected.
+            </p>
+            <p class="text-slate-600">
+                Every technician on our team is state-licensed, background-checked, and trained in integrated pest management (IPM) techniques that minimize chemical use while maximizing results.
+            </p>
+        </div>
+
+        <!-- Contact card -->
+        <div>
+            <div class="bg-white rounded-2xl shadow-md p-8 h-full">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6">Get in Touch</h2>
+                <ul class="space-y-5 text-slate-700">
+                    <li class="flex items-start gap-3">
+                        <span class="text-2xl mt-0.5">📞</span>
+                        <div>
+                            <p class="text-xs uppercase font-semibold text-slate-400 mb-0.5">Phone</p>
+                            <a href="tel:5551234567" class="text-green-700 hover:text-green-800 font-medium">(555) 123-4567</a>
+                            <p class="text-xs text-slate-400 mt-0.5">Mon–Sat, 7am–7pm</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-2xl mt-0.5">✉️</span>
+                        <div>
+                            <p class="text-xs uppercase font-semibold text-slate-400 mb-0.5">Email</p>
+                            <a href="mailto:info@bugoff.com" class="text-green-700 hover:text-green-800 font-medium">info@bugoff.com</a>
+                            <p class="text-xs text-slate-400 mt-0.5">We reply within 2 hours</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-2xl mt-0.5">📍</span>
+                        <div>
+                            <p class="text-xs uppercase font-semibold text-slate-400 mb-0.5">Service Area</p>
+                            <p class="text-slate-700 text-sm">Springfield, Shelbyville, Capital City, and surrounding communities in central Illinois.</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="mt-8">
+                    <a asp-controller="ServiceRequest" asp-action="Create"
+                       class="block w-full text-center bg-green-700 hover:bg-green-800 text-white font-semibold py-3 rounded-lg transition-colors">
+                        Request a Service Visit
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Guarantees -->
+<section class="bg-gray-50 py-14 px-4">
+    <div class="max-w-5xl mx-auto">
+        <h2 class="text-2xl font-bold text-slate-900 text-center mb-10">Our Guarantees</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            @foreach (var item in new[] {
+                new { Icon = "🔒", Title = "Licensed & Insured", Desc = "Fully covered for your peace of mind." },
+                new { Icon = "🌿", Title = "Eco-Friendly", Desc = "Low-impact treatments, safe for kids and pets." },
+                new { Icon = "✅", Title = "Satisfaction Guarantee", Desc = "We return for free if pests come back." },
+                new { Icon = "⚡", Title = "Rapid Response", Desc = "Same-day or next-day scheduling available." }
+            })
+            {
+                <div class="bg-white rounded-xl shadow-sm p-6 flex flex-col items-center text-center gap-2">
+                    <span class="text-3xl">@item.Icon</span>
+                    <h3 class="font-semibold text-slate-900 text-sm">@item.Title</h3>
+                    <p class="text-xs text-slate-500">@item.Desc</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>

@@ -1,50 +1,112 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Extermination</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <title>@ViewData["Title"] - BugOff Exterminators</title>
     <link rel="stylesheet" href="~/css/app.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Extermination.styles.css" asp-append-version="true" />
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Extermination</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+<body class="bg-gray-50 text-slate-900 min-h-screen flex flex-col">
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - Extermination - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-green-800 shadow-md">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+
+                <!-- Logo -->
+                <a asp-controller="Home" asp-action="Index"
+                   class="text-white font-bold text-xl tracking-tight hover:text-green-100 transition-colors">
+                    🐛 BugOff Exterminators
+                </a>
+
+                <!-- Desktop links -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a asp-controller="Home" asp-action="Index"
+                       class="text-green-100 hover:text-white text-sm font-medium transition-colors">Home</a>
+                    <a asp-controller="Home" asp-action="About"
+                       class="text-green-100 hover:text-white text-sm font-medium transition-colors">About</a>
+                    <a asp-controller="Admin" asp-action="Index"
+                       class="text-green-100 hover:text-white text-sm font-medium transition-colors">Admin</a>
+                    <a asp-controller="ServiceRequest" asp-action="Create"
+                       class="bg-amber-500 hover:bg-amber-400 text-white text-sm font-semibold px-4 py-2 rounded-md transition-colors">
+                        Request Service
+                    </a>
+                </div>
+
+                <!-- Mobile hamburger -->
+                <button id="menu-toggle"
+                        class="md:hidden text-green-100 hover:text-white focus:outline-none"
+                        aria-label="Toggle navigation" aria-expanded="false">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M4 6h16M4 12h16M4 18h16" />
+                        <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4 border-t border-green-700 pt-3 flex flex-col gap-3">
+                <a asp-controller="Home" asp-action="Index"
+                   class="text-green-100 hover:text-white text-sm font-medium transition-colors">Home</a>
+                <a asp-controller="Home" asp-action="About"
+                   class="text-green-100 hover:text-white text-sm font-medium transition-colors">About</a>
+                <a asp-controller="Admin" asp-action="Index"
+                   class="text-green-100 hover:text-white text-sm font-medium transition-colors">Admin</a>
+                <a asp-controller="ServiceRequest" asp-action="Create"
+                   class="bg-amber-500 hover:bg-amber-400 text-white text-sm font-semibold px-4 py-2 rounded-md text-center transition-colors">
+                    Request Service
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page content -->
+    <main class="flex-1">
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-gray-300">
+        <div class="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <p class="text-white font-bold text-lg mb-2">🐛 BugOff Exterminators</p>
+                <p class="text-sm text-gray-400">Professional pest control you can trust. Licensed, insured, and committed to eco-friendly solutions.</p>
+            </div>
+            <div>
+                <p class="text-white font-semibold mb-3">Contact Us</p>
+                <p class="text-sm">📞 <a href="tel:5551234567" class="hover:text-white transition-colors">(555) 123-4567</a></p>
+                <p class="text-sm mt-1">✉️ <a href="mailto:info@bugoff.com" class="hover:text-white transition-colors">info@bugoff.com</a></p>
+            </div>
+            <div>
+                <p class="text-white font-semibold mb-3">Service Area</p>
+                <p class="text-sm text-gray-400">Serving Springfield, Shelbyville, Capital City, and surrounding communities in central Illinois.</p>
+            </div>
+        </div>
+        <div class="border-t border-slate-700 text-center py-4 text-xs text-gray-500">
+            &copy; @DateTime.Now.Year BugOff Exterminators. All rights reserved.
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        (function () {
+            var toggle = document.getElementById('menu-toggle');
+            var menu = document.getElementById('mobile-menu');
+            var hamburger = document.getElementById('hamburger-icon');
+            var close = document.getElementById('close-icon');
+            toggle.addEventListener('click', function () {
+                var isOpen = !menu.classList.contains('hidden');
+                menu.classList.toggle('hidden');
+                hamburger.classList.toggle('hidden', !isOpen);
+                close.classList.toggle('hidden', isOpen);
+                toggle.setAttribute('aria-expanded', String(!isOpen));
+            });
+        })();
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
