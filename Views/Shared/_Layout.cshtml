@@ -9,7 +9,7 @@
 <body class="bg-white text-gray-900 min-h-screen flex flex-col">
 
     <header class="sticky top-0 z-50 bg-white border-b border-gray-100">
-        <div class="max-w-5xl mx-auto px-6">
+        <div class="max-w-6xl mx-auto px-6">
             <div class="flex items-center justify-between h-16">
 
                 <a asp-controller="Home" asp-action="Index"
@@ -17,16 +17,20 @@
                     BugOff Exterminators
                 </a>
 
-                <nav class="hidden md:flex items-center gap-8">
+                <nav class="hidden md:flex items-center gap-7">
                     <a asp-controller="Home" asp-action="Index"
                        class="text-sm text-gray-500 hover:text-gray-900 transition-colors">Home</a>
-                    <a asp-controller="Home" asp-action="About"
-                       class="text-sm text-gray-500 hover:text-gray-900 transition-colors">About</a>
-                    <a asp-controller="Admin" asp-action="Index"
-                       class="text-sm text-gray-500 hover:text-gray-900 transition-colors">Admin</a>
+                    <a asp-controller="Home" asp-action="ServiceArea"
+                       class="text-sm text-gray-500 hover:text-gray-900 transition-colors">Service Area</a>
+                    <a asp-controller="Home" asp-action="Rates"
+                       class="text-sm text-gray-500 hover:text-gray-900 transition-colors">Rates</a>
+                    <a asp-controller="Home" asp-action="Reviews"
+                       class="text-sm text-gray-500 hover:text-gray-900 transition-colors">Reviews</a>
+                    <a asp-controller="Home" asp-action="Contact"
+                       class="text-sm text-gray-500 hover:text-gray-900 transition-colors">Contact</a>
                     <a asp-controller="ServiceRequest" asp-action="Create"
                        class="bg-green-700 hover:bg-green-800 text-white text-sm font-medium px-5 py-2 rounded-xl transition-colors">
-                        Request Service
+                        Book Service
                     </a>
                 </nav>
 
@@ -45,13 +49,17 @@
             <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 py-5 flex flex-col gap-4">
                 <a asp-controller="Home" asp-action="Index"
                    class="text-sm text-gray-600 hover:text-gray-900 transition-colors">Home</a>
-                <a asp-controller="Home" asp-action="About"
-                   class="text-sm text-gray-600 hover:text-gray-900 transition-colors">About</a>
-                <a asp-controller="Admin" asp-action="Index"
-                   class="text-sm text-gray-600 hover:text-gray-900 transition-colors">Admin</a>
+                <a asp-controller="Home" asp-action="ServiceArea"
+                   class="text-sm text-gray-600 hover:text-gray-900 transition-colors">Service Area</a>
+                <a asp-controller="Home" asp-action="Rates"
+                   class="text-sm text-gray-600 hover:text-gray-900 transition-colors">Rates</a>
+                <a asp-controller="Home" asp-action="Reviews"
+                   class="text-sm text-gray-600 hover:text-gray-900 transition-colors">Reviews</a>
+                <a asp-controller="Home" asp-action="Contact"
+                   class="text-sm text-gray-600 hover:text-gray-900 transition-colors">Contact</a>
                 <a asp-controller="ServiceRequest" asp-action="Create"
                    class="bg-green-700 hover:bg-green-800 text-white text-sm font-medium px-5 py-2.5 rounded-xl text-center transition-colors">
-                    Request Service
+                    Book Service
                 </a>
             </div>
         </div>
@@ -62,24 +70,28 @@
     </main>
 
     <footer class="bg-gray-900 text-gray-400 mt-auto">
-        <div class="max-w-5xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
             <div>
-                <p class="text-white font-medium mb-2">BugOff Exterminators</p>
-                <p class="text-sm leading-relaxed">Licensed, insured pest control for central Illinois homes and businesses since 2008.</p>
+                <p class="text-white font-semibold mb-1">BugOff Exterminators</p>
+                <p class="text-sm text-gray-500 italic mb-4">Peace of Mind</p>
+                <p class="text-sm leading-relaxed">Licensed and insured pest control for central Illinois homes and businesses.</p>
             </div>
             <div>
                 <p class="text-sm font-medium text-gray-300 mb-3">Contact</p>
-                <p class="text-sm mb-1.5"><a href="tel:5551234567" class="hover:text-white transition-colors">(555) 123-4567</a></p>
-                <p class="text-sm mb-1.5"><a href="mailto:info@bugoff.com" class="hover:text-white transition-colors">info@bugoff.com</a></p>
-                <p class="text-sm text-gray-500">Mon&ndash;Sat, 7am&ndash;7pm</p>
+                <p class="text-sm mb-2"><a href="tel:5551234567" class="hover:text-white transition-colors">(555) 123-4567</a></p>
+                <p class="text-sm mb-2"><a href="mailto:info@bugoff.com" class="hover:text-white transition-colors">info@bugoff.com</a></p>
+                <p class="text-sm text-gray-500">Mon&ndash;Sat &nbsp;7am&ndash;7pm</p>
             </div>
             <div>
                 <p class="text-sm font-medium text-gray-300 mb-3">Service Area</p>
                 <p class="text-sm leading-relaxed">Springfield, Shelbyville, Capital City, and surrounding central Illinois communities.</p>
+                <a asp-controller="Home" asp-action="ServiceArea"
+                   class="inline-block mt-3 text-sm text-green-500 hover:text-green-400 transition-colors">View map &rarr;</a>
             </div>
         </div>
         <div class="border-t border-gray-800 py-4 text-center text-xs text-gray-600">
-            &copy; @DateTime.Now.Year BugOff Exterminators
+            &copy; @DateTime.Now.Year BugOff Exterminators &middot;
+            <a asp-controller="Admin" asp-action="Index" class="hover:text-gray-400 transition-colors">Admin</a>
         </div>
     </footer>
 

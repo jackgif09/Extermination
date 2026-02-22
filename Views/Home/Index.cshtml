@@ -1,48 +1,58 @@
 @{
     ViewData["Title"] = "Home";
-    Layout = "_Layout";
 }
 
 <!-- Hero -->
-<section class="px-6 py-24 max-w-5xl mx-auto">
-    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-snug mb-5">
-        Pest problems?<br />We can help.
+<section class="max-w-6xl mx-auto px-6 pt-20 pb-16">
+    <p class="text-sm text-green-700 font-medium mb-4">Serving central Illinois since 2008</p>
+    <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight max-w-2xl mb-6">
+        Pest problems?<br>I can help.
     </h1>
-    <p class="text-gray-500 text-lg leading-relaxed max-w-xl mb-8">
-        BugOff Exterminators has been keeping central Illinois homes and businesses pest-free since 2008. Fast, friendly, and guaranteed.
+    <p class="text-lg text-gray-500 max-w-xl mb-10 leading-relaxed">
+        I'm a licensed solo operator. No call centers, no subcontractors — just me showing up on time and getting the job done right.
     </p>
-    <a asp-controller="ServiceRequest" asp-action="Create"
-       class="inline-block bg-green-700 hover:bg-green-800 text-white font-medium px-7 py-3.5 rounded-xl text-sm transition-colors">
-        Request a Visit
-    </a>
-    <p class="mt-4 text-sm text-gray-400">
-        Or call us at <a href="tel:5551234567" class="text-gray-600 hover:text-green-700 transition-colors">(555) 123-4567</a>
+    <div class="flex flex-col sm:flex-row gap-4">
+        <a asp-controller="ServiceRequest" asp-action="Create"
+           class="inline-block bg-green-700 hover:bg-green-800 text-white font-medium px-8 py-3.5 rounded-xl text-sm transition-colors text-center">
+            Book a Service Call
+        </a>
+        <a href="tel:5551234567"
+           class="inline-block border border-gray-200 hover:border-gray-400 text-gray-700 font-medium px-8 py-3.5 rounded-xl text-sm transition-colors text-center">
+            (555) 123-4567
+        </a>
+    </div>
+</section>
+
+<div class="border-t border-gray-100"></div>
+
+<!-- What I treat -->
+<section class="max-w-6xl mx-auto px-6 py-16">
+    <h2 class="text-xl font-semibold text-gray-900 mb-4">What I treat</h2>
+    <p class="text-gray-500 leading-relaxed max-w-2xl">
+        Ants &middot; Bed Bugs &middot; Cockroaches &middot; Fleas &middot; Mosquitoes &middot; Rodents &middot; Spiders &middot; Termites &middot; Wasps &middot; and more
+    </p>
+    <p class="mt-5 text-sm text-gray-400">
+        Not sure what you're dealing with? Call me and I'll walk you through it before you book anything.
     </p>
 </section>
 
-<!-- What we do -->
-<section class="px-6 pb-24 max-w-5xl mx-auto">
-    <div class="border-t border-gray-100 pt-16">
+<div class="border-t border-gray-100"></div>
 
-        <h2 class="text-xl font-semibold text-gray-900 mb-3">Pests we treat</h2>
-        <p class="text-gray-500 leading-relaxed mb-16">
-            Ants &middot; Bed Bugs &middot; Cockroaches &middot; Fleas &middot; Mosquitoes &middot; Rodents &middot; Spiders &middot; Termites &middot; Wasps &middot; and more
-        </p>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <div>
-                <h3 class="font-semibold text-gray-900 mb-2">Licensed &amp; Insured</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">Every technician is state-certified and fully insured. You are always in good hands.</p>
-            </div>
-            <div>
-                <h3 class="font-semibold text-gray-900 mb-2">Same-Day Response</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">Most requests are scheduled within 24 hours. We know pest problems can't wait.</p>
-            </div>
-            <div>
-                <h3 class="font-semibold text-gray-900 mb-2">Safe for Your Family</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">Our treatments are low-impact and eco-friendly&mdash;effective on pests, gentle on people and pets.</p>
-            </div>
+<!-- How I work -->
+<section class="max-w-6xl mx-auto px-6 py-16">
+    <h2 class="text-xl font-semibold text-gray-900 mb-10">How I work</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-10">
+        <div>
+            <p class="font-semibold text-gray-900 mb-2">Honest assessment</p>
+            <p class="text-sm text-gray-500 leading-relaxed">I'll tell you exactly what the problem is, what it'll take to fix it, and what it'll cost — before any work starts.</p>
         </div>
-
+        <div>
+            <p class="font-semibold text-gray-900 mb-2">Targeted treatment</p>
+            <p class="text-sm text-gray-500 leading-relaxed">I use integrated pest management to address the root cause, not just treat the symptoms.</p>
+        </div>
+        <div>
+            <p class="font-semibold text-gray-900 mb-2">Follow-up included</p>
+            <p class="text-sm text-gray-500 leading-relaxed">Most treatments include a follow-up visit. If pests come back between visits, so do I.</p>
+        </div>
     </div>
 </section>
