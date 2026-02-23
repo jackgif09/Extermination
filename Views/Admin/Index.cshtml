@@ -19,7 +19,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
         <div>
             <h1 class="text-2xl font-bold text-gray-900">Service Requests</h1>
-            <p class="text-gray-400 text-sm mt-1">
+            <p class="text-gray-600 text-sm mt-1">
                 @Model.TotalCount total &middot;
                 @Model.NewCount new &middot;
                 @Model.ScheduledCount scheduled &middot;
@@ -35,14 +35,14 @@
     <!-- Table -->
     @if (!Model.Requests.Any())
     {
-        <p class="text-gray-400 py-12 text-center">No requests yet. <a asp-controller="ServiceRequest" asp-action="Create" class="text-green-700 hover:underline">Add the first one.</a></p>
+        <p class="text-gray-600 py-12 text-center">No requests yet. <a asp-controller="ServiceRequest" asp-action="Create" class="text-green-700 hover:underline">Add the first one.</a></p>
     }
     else
     {
         <div class="overflow-x-auto rounded-2xl border border-gray-100">
             <table class="w-full text-sm text-left bg-white">
                 <thead>
-                    <tr class="border-b border-gray-100 text-gray-400 text-xs">
+                    <tr class="border-b border-gray-100 text-gray-600 text-xs">
                         <th class="px-5 py-3.5 font-medium">#</th>
                         <th class="px-5 py-3.5 font-medium">Customer</th>
                         <th class="px-5 py-3.5 font-medium hidden sm:table-cell">Phone</th>
@@ -57,7 +57,7 @@
                     {
                         <tr class="hover:bg-gray-50 cursor-pointer transition-colors"
                             onclick="window.location='/Admin/Details/@r.Id'">
-                            <td class="px-5 py-4 text-gray-300 text-xs">@r.Id</td>
+                            <td class="px-5 py-4 text-gray-500 text-sm">@r.Id</td>
                             <td class="px-5 py-4 font-medium text-gray-900">@r.CustomerName</td>
                             <td class="px-5 py-4 text-gray-500 hidden sm:table-cell">@r.Phone</td>
                             <td class="px-5 py-4 text-gray-600">@r.PestType.ToString().Replace("_", " ")</td>
@@ -66,10 +66,10 @@
                                     @r.Status
                                 </span>
                             </td>
-                            <td class="px-5 py-4 text-gray-400 hidden md:table-cell">
+                            <td class="px-5 py-4 text-gray-600 hidden md:table-cell">
                                 @(r.PreferredDate.HasValue ? r.PreferredDate.Value.ToString("MMM d, yyyy") : "—")
                             </td>
-                            <td class="px-5 py-4 text-gray-400 text-xs hidden lg:table-cell">
+                            <td class="px-5 py-4 text-gray-600 text-sm hidden lg:table-cell">
                                 @r.CreatedAt.ToString("MMM d, yyyy")
                             </td>
                         </tr>
