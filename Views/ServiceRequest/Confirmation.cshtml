@@ -10,27 +10,27 @@
     </svg>
 
     <h1 class="text-2xl font-bold text-gray-900 mb-3">Got it, @Model.CustomerName.</h1>
-    <p class="text-gray-500 leading-relaxed mb-10">
+    <p class="text-gray-600 leading-relaxed mb-10">
         I'll call or text you within a few hours to confirm a time. If it's urgent, feel free to call me directly at <a href="tel:5551234567" class="text-green-700 hover:underline">(555) 123-4567</a>.
     </p>
 
     <dl class="text-left space-y-3 mb-10">
         <div class="flex justify-between text-sm">
-            <dt class="text-gray-400">Reference</dt>
+            <dt class="text-gray-600">Reference</dt>
             <dd class="text-gray-700 font-medium">#@Model.Id</dd>
         </div>
         <div class="flex justify-between text-sm">
-            <dt class="text-gray-400">Pest type</dt>
+            <dt class="text-gray-600">Pest type</dt>
             <dd class="text-gray-700 font-medium">@Model.PestType.ToString().Replace("_", " ")</dd>
         </div>
         <div class="flex justify-between text-sm gap-4">
-            <dt class="text-gray-400 shrink-0">Address</dt>
+            <dt class="text-gray-600 shrink-0">Address</dt>
             <dd class="text-gray-700 font-medium text-right">@Model.Address</dd>
         </div>
         @if (Model.PreferredDate.HasValue)
         {
             <div class="flex justify-between text-sm">
-                <dt class="text-gray-400">Preferred date</dt>
+                <dt class="text-gray-600">Preferred date</dt>
                 <dd class="text-gray-700 font-medium">@Model.PreferredDate.Value.ToString("MMMM d, yyyy")</dd>
             </div>
         }
@@ -40,7 +40,7 @@
        class="inline-block bg-green-700 hover:bg-green-800 text-white font-medium px-7 py-3.5 rounded-xl text-sm transition-colors">
         Back to Home
     </a>
-    <p class="mt-4 text-sm text-gray-400">
+    <p class="mt-4 text-sm text-gray-600">
         <a asp-controller="ServiceRequest" asp-action="Create"
            class="hover:text-gray-600 underline underline-offset-2 transition-colors">Submit another request</a>
     </p>
