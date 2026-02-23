@@ -1537,3 +1537,43 @@
   .day-hero { flex-direction: column; align-items: flex-start; }
   .day-hero-next { text-align: left; }
 }
+
+/* ── 34. Login page ───────────────────────────────────────────────────────── */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  background: var(--a-bg);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  background: var(--a-surface);
+  border: 1px solid var(--a-border);
+  border-radius: var(--a-r-lg);
+  padding: 2rem;
+  box-shadow: var(--a-shadow-lg);
+}
+
+.login-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 1.75rem;
+  color: var(--a-text);
+  text-align: center;
+}
+
+.login-error {
+  background: var(--st-cancel-bg);
+  color: var(--st-cancel-text);
+  border: 1px solid var(--st-cancel-text);
+  border-radius: var(--a-r-sm);
+  padding: .625rem .875rem;
+  font-size: 13px;
+  margin-bottom: 1rem;
+}
+.login-error:empty { display: none; }

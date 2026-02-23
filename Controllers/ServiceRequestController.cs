@@ -23,7 +23,8 @@ public class ServiceRequestController : Controller
     // POST: /ServiceRequest/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(ServiceRequest model)
+    public async Task<IActionResult> Create(
+        [Bind("CustomerName,Phone,Email,Address,PestType,Description,PreferredDate")] ServiceRequest model)
     {
         if (!ModelState.IsValid)
             return View(model);

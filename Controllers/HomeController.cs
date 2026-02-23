@@ -14,11 +14,13 @@ public class HomeController : Controller
     }
 
     public IActionResult Index()               => View();
+    public IActionResult About()               => View();
     public IActionResult ServiceArea()         => View();
     public IActionResult Rates()               => View();
     public IActionResult CommercialLicenses()  => View();
     public IActionResult Reviews()             => View();
     public IActionResult Contact()             => View();
+    public IActionResult Privacy()             => View();
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
