@@ -56,6 +56,8 @@ public class AdminController : Controller
         var nextAppt = todayList.FirstOrDefault(r => r.ScheduledFor.HasValue && r.ScheduledFor.Value > now)
                     ?? upcomingList.FirstOrDefault(r => r.ScheduledFor.HasValue);
 
+        var monthStart = new DateTime(today.Year, today.Month, 1);
+
         var vm = new AdminDashboardViewModel
         {
             TodaySchedule = todayList,
@@ -63,7 +65,12 @@ public class AdminController : Controller
             PastRequests = pastList,
             NextAppointment = nextAppt,
             TodayNewCount = todayList.Count(r => r.Status == ServiceStatus.New),
-            UpcomingNewCount = upcomingList.Count(r => r.Status == ServiceStatus.New)
+            UpcomingNewCount = upcomingList.Count(r => r.Status == ServiceStatus.New),
+            NewRequestsCount        = all.Count(r => r.Status == ServiceStatus.New),
+            BookedCount             = upcomingList.Count(r => r.ScheduledFor.HasValue),
+            CompletedThisMonthCount = all.Count(r => r.Status == ServiceStatus.Completed
+                                                  && r.CreatedAt >= monthStart),
+            TotalRevenue            = all.Where(r => r.Price.HasValue).Sum(r => r.Price!.Value)
         };
 
         return View(vm);

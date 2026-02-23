@@ -17,4 +17,10 @@ public class AdminDashboardViewModel
     public int UpcomingNewCount { get; set; }
 
     public int TodayCount => TodaySchedule.Count;
+
+    // Metric tracker
+    public int NewRequestsCount { get; set; }
+    public int BookedCount { get; set; }
+    public int CompletedThisMonthCount { get; set; }
+    public decimal TotalRevenue { get; set; }
 }
