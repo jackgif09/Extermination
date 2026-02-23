@@ -4,13 +4,17 @@ namespace Extermination.ViewModels;
 
 public class AdminDashboardViewModel
 {
-    public int TodayCount { get; set; }
-    public int WeekCount { get; set; }
-    public int PendingCount { get; set; }
-    public decimal MonthRevenue { get; set; }
-    public IEnumerable<ServiceRequest> TodaySchedule { get; set; } = [];
-    public IEnumerable<ServiceRequest> AllRequests { get; set; } = [];
-    public IEnumerable<ServiceRequest> WeekAppointments { get; set; } = [];
-    public DateTime WeekStart { get; set; }
-    public DateTime WeekEnd { get; set; }
+    // Tab data
+    public IList<ServiceRequest> TodaySchedule { get; set; } = [];
+    public IList<ServiceRequest> UpcomingRequests { get; set; } = [];
+    public IList<ServiceRequest> PastRequests { get; set; } = [];
+
+    // Hero
+    public ServiceRequest? NextAppointment { get; set; }
+
+    // Tab badges (unconfirmed = New status)
+    public int TodayNewCount { get; set; }
+    public int UpcomingNewCount { get; set; }
+
+    public int TodayCount => TodaySchedule.Count;
 }

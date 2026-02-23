@@ -1,0 +1,75 @@
+@model QuickCreateViewModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "New Booking";
+}
+
+<div class="create-page">
+    <h1 class="create-title">New Booking</h1>
+
+    <form asp-controller="Admin" asp-action="Create" method="post" novalidate>
+        @Html.AntiForgeryToken()
+
+        <div class="form-stack">
+
+            <div class="form-group">
+                <label asp-for="CustomerName" class="form-label">Customer Name <span class="req">*</span></label>
+                <input asp-for="CustomerName" class="form-input" autocomplete="name" placeholder="Full name" />
+                <span asp-validation-for="CustomerName" class="form-error"></span>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="Phone" class="form-label">Phone <span class="req">*</span></label>
+                    <input asp-for="Phone" type="tel" class="form-input" autocomplete="tel" placeholder="555-000-0000" />
+                    <span asp-validation-for="Phone" class="form-error"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input asp-for="Email" type="email" class="form-input" autocomplete="email" placeholder="Optional" />
+                    <span asp-validation-for="Email" class="form-error"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Address" class="form-label">Address <span class="req">*</span></label>
+                <input asp-for="Address" class="form-input" autocomplete="street-address" placeholder="Street, City, State" />
+                <span asp-validation-for="Address" class="form-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PestType" class="form-label">Pest Type <span class="req">*</span></label>
+                <select asp-for="PestType" asp-items="Html.GetEnumSelectList<PestType>()" class="form-input">
+                </select>
+                <span asp-validation-for="PestType" class="form-error"></span>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="ScheduledFor" class="form-label">Scheduled For</label>
+                    <input asp-for="ScheduledFor" type="datetime-local" class="form-input" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="form-label">Price ($)</label>
+                    <input asp-for="Price" type="number" step="0.01" min="0" class="form-input" placeholder="0.00" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="form-label">Notes / Description</label>
+                <textarea asp-for="Description" class="form-input form-textarea" rows="3" placeholder="Details about the job…"></textarea>
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+            <a asp-controller="Admin" asp-action="Index" class="btn btn-ghost">Cancel</a>
+            <button type="submit" class="btn btn-primary">Create Booking</button>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
