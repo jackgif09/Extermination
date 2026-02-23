@@ -107,7 +107,7 @@ var AdminApp = (function () {
     var saved = localStorage.getItem('adminTheme') || 'light';
     document.documentElement.setAttribute('data-theme', saved);
 
-    var btn = document.getElementById('theme-toggle');
+    var btn = document.getElementById('theme-btn');
     if (!btn) return;
     btn.addEventListener('click', function () {
       var current = document.documentElement.getAttribute('data-theme');
@@ -620,7 +620,93 @@ var AdminApp = (function () {
     tbody.insertBefore(tr, tbody.firstChild);
   }
 
-  // ── 8. Keyboard nav ───────────────────────────────────────────────────────
+  // ── 8. Tab bar ────────────────────────────────────────────────────────────
+
+  function initTabs() {
+    var tabBtns = document.querySelectorAll('.tab-btn[data-tab]');
+    if (!tabBtns.length) return;
+
+    function activateTab(tabName) {
+      tabBtns.forEach(function (btn) {
+        btn.setAttribute('aria-selected', btn.dataset.tab === tabName ? 'true' : 'false');
+      });
+      document.querySelectorAll('.tab-panel[data-panel]').forEach(function (panel) {
+        if (panel.dataset.panel === tabName) {
+          panel.removeAttribute('hidden');
+        } else {
+          panel.setAttribute('hidden', '');
+        }
+      });
+    }
+
+    tabBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () { activateTab(btn.dataset.tab); });
+    });
+  }
+
+  // ── 9. Appointment card accordion + inline actions ────────────────────────
+
+  function initCards() {
+    if (!document.querySelector('.tab-panels')) return;
+
+    // Accordion toggle
+    document.addEventListener('click', function (e) {
+      var summary = e.target.closest('.appt-summary');
+      if (!summary) return;
+      var card = summary.closest('.appt-card');
+      if (!card) return;
+      var detail = card.querySelector('.appt-detail');
+      var expanded = summary.getAttribute('aria-expanded') === 'true';
+      summary.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      if (detail) detail.classList.toggle('is-open', !expanded);
+    });
+
+    // Inline status buttons
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('.action-btn');
+      if (!btn) return;
+      var card = btn.closest('.appt-card');
+      if (!card) return;
+      var id = parseInt(card.dataset.id);
+      var newStatusInt = parseInt(btn.dataset.statusInt);
+      if (isNaN(id) || isNaN(newStatusInt)) return;
+
+      apiPost('/Admin/api/status', { id: id, status: newStatusInt })
+        .then(function (data) {
+          showToast('Status updated to ' + data.newStatus, 'success');
+
+          var badge = card.querySelector('.status-badge');
+          if (badge) {
+            badge.textContent = data.newStatus;
+            badge.className = 'status-badge status-' + statusClass(data.newStatus);
+          }
+
+          ['new', 'scheduled', 'completed', 'cancelled'].forEach(function (s) {
+            card.classList.remove('status-' + s);
+          });
+          card.classList.add('status-' + statusClass(data.newStatus));
+          card.dataset.status = data.newStatus;
+
+          card.querySelectorAll('.action-btn').forEach(function (ab) {
+            var isNow = parseInt(ab.dataset.statusInt) === data.newStatusInt;
+            ab.classList.toggle('is-current', isNow);
+            ab.disabled = isNow;
+          });
+        }).catch(function () { showToast('Failed to update status', 'error'); });
+    });
+
+    // Auto-save notes on blur
+    document.addEventListener('focusout', function (e) {
+      if (!e.target.classList.contains('note-input')) return;
+      var card = e.target.closest('.appt-card');
+      if (!card) return;
+      var id = parseInt(card.dataset.id);
+      if (isNaN(id)) return;
+      apiPost('/Admin/api/notes', { id: id, notes: e.target.value }).catch(function () { /* silent */ });
+    });
+  }
+
+  // ── 10. Keyboard nav ──────────────────────────────────────────────────────
 
   function initKeyboard() {
     document.addEventListener('keydown', function (e) {
@@ -644,6 +730,8 @@ var AdminApp = (function () {
     initTimelineClicks();
     initPanel();
     initModal();
+    initTabs();
+    initCards();
     initKeyboard();
   }
 

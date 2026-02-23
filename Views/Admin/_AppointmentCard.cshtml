@@ -1,0 +1,98 @@
+@model (ServiceRequest Request, bool ShowDate)
+@functions {
+    static string CardStatusClass(ServiceStatus s) => s switch
+    {
+        ServiceStatus.New       => "new",
+        ServiceStatus.Scheduled => "scheduled",
+        ServiceStatus.Completed => "completed",
+        ServiceStatus.Cancelled => "cancelled",
+        _                       => "new"
+    };
+
+    static string CardShortAddress(string address)
+    {
+        var comma = address.IndexOf(',');
+        return comma > 0 ? address[..comma] : address;
+    }
+}
+@{
+    var r = Model.Request;
+    var sc = CardStatusClass(r.Status);
+    var mapsUrl = "https://maps.google.com/?q=" + Uri.EscapeDataString(r.Address);
+    string timeLabel;
+    if (Model.ShowDate)
+        timeLabel = r.ScheduledFor.HasValue ? r.ScheduledFor.Value.ToString("MMM d, h:mm tt") : "No date set";
+    else
+        timeLabel = r.ScheduledFor.HasValue ? r.ScheduledFor.Value.ToString("h:mm tt") : "TBD";
+}
+<article class="appt-card status-@sc" data-id="@r.Id" data-status="@r.Status">
+    <button class="appt-summary" aria-expanded="false" type="button">
+        <span class="appt-time">@timeLabel</span>
+        <span class="appt-info">
+            <strong class="appt-name">@r.CustomerName</strong>
+            <span class="appt-meta">@r.PestType.ToString().Replace("_", " ") &middot; @CardShortAddress(r.Address)</span>
+        </span>
+        <span class="status-badge status-@sc">@r.Status</span>
+        <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="appt-detail">
+        <div class="appt-detail-inner">
+            <div class="contact-links">
+                <a href="tel:@r.Phone" class="contact-btn contact-btn--call">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    @r.Phone
+                </a>
+                <a href="sms:@r.Phone" class="contact-btn contact-btn--sms">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    Text
+                </a>
+                @if (!string.IsNullOrWhiteSpace(r.Email))
+                {
+                    <a href="mailto:@r.Email" class="contact-btn contact-btn--email">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        @r.Email
+                    </a>
+                }
+                <a href="@mapsUrl" target="_blank" rel="noopener" class="contact-btn contact-btn--map">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Map
+                </a>
+            </div>
+            @if (!string.IsNullOrWhiteSpace(r.Description))
+            {
+                <p class="appt-desc">@r.Description</p>
+            }
+            <div class="note-row">
+                <label class="note-label">Internal note</label>
+                <textarea class="note-input" rows="2" placeholder="Add a note…">@(r.Notes ?? "")</textarea>
+            </div>
+            <div class="action-row">
+                @if (r.Status == ServiceStatus.Scheduled)
+                {
+                    <button type="button" class="action-btn action-confirm is-current" data-status-int="1" disabled>Confirm</button>
+                }
+                else
+                {
+                    <button type="button" class="action-btn action-confirm" data-status-int="1">Confirm</button>
+                }
+                @if (r.Status == ServiceStatus.Completed)
+                {
+                    <button type="button" class="action-btn action-complete is-current" data-status-int="2" disabled>Complete</button>
+                }
+                else
+                {
+                    <button type="button" class="action-btn action-complete" data-status-int="2">Complete</button>
+                }
+                @if (r.Status == ServiceStatus.Cancelled)
+                {
+                    <button type="button" class="action-btn action-cancel is-current" data-status-int="3" disabled>Cancel</button>
+                }
+                else
+                {
+                    <button type="button" class="action-btn action-cancel" data-status-int="3">Cancel</button>
+                }
+            </div>
+            <a href="/Admin/Details/@r.Id" class="details-link">View full details &rarr;</a>
+        </div>
+    </div>
+</article>

@@ -1030,3 +1030,510 @@
   .admin-panel { width: 100vw; }
   .admin-cal-chip { font-size: 10px; padding: 1px 4px; }
 }
+
+/* ── 23. App layout (mobile-first shell) ─────────────────────────────────── */
+
+.app-body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--a-text);
+  background: var(--a-bg);
+  min-height: 100vh;
+}
+
+.app-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: var(--a-top-h);
+  background: var(--a-top-bg);
+  border-bottom: 1px solid var(--a-top-border);
+  display: flex;
+  align-items: center;
+  padding: 0 .75rem;
+  gap: .25rem;
+}
+
+.app-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--a-text-2);
+  text-decoration: none;
+  padding: .375rem;
+  border-radius: var(--a-r-sm);
+  transition: color .15s;
+  flex-shrink: 0;
+}
+.app-back:hover { color: var(--a-text); }
+
+.app-title {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--a-text);
+  letter-spacing: -.3px;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--a-text-2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .4rem;
+  border-radius: var(--a-r-sm);
+  transition: background .15s, color .15s;
+  flex-shrink: 0;
+}
+.icon-btn:hover { background: var(--a-surface-2); color: var(--a-text); }
+
+.app-main {
+  padding-top: var(--a-top-h);
+  min-height: 100vh;
+}
+.has-tabbar .app-main {
+  padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px));
+}
+
+/* ── 24. Tab bar + FAB ────────────────────────────────────────────────────── */
+
+.tab-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 60px;
+  background: var(--a-top-bg);
+  border-top: 1px solid var(--a-top-border);
+  display: flex;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.tab-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--a-text-3);
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  padding: .4rem 0;
+  position: relative;
+  transition: color .15s;
+}
+.tab-btn[aria-selected="true"] { color: var(--a-primary); }
+
+.tab-label { line-height: 1; }
+
+.tab-badge {
+  position: absolute;
+  top: 4px;
+  right: calc(50% - 18px);
+  background: var(--a-primary);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 8px;
+  min-width: 16px;
+  text-align: center;
+  line-height: 14px;
+}
+
+.fab {
+  position: fixed;
+  bottom: calc(60px + .875rem + env(safe-area-inset-bottom, 0px));
+  right: 1rem;
+  z-index: 101;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--a-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(22,163,74,.4);
+  transition: background .15s, box-shadow .15s;
+}
+.fab:hover { background: var(--a-primary-h); box-shadow: 0 6px 16px rgba(22,163,74,.5); }
+
+/* ── 25. Tab panels ───────────────────────────────────────────────────────── */
+
+.tab-panels { padding: 1rem; }
+.tab-panel[hidden] { display: none; }
+
+/* ── 26. Day hero ─────────────────────────────────────────────────────────── */
+
+.day-hero {
+  background: var(--a-surface);
+  border: 1px solid var(--a-border);
+  border-radius: var(--a-r-lg);
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.day-hero-count { display: flex; align-items: baseline; gap: .35rem; }
+.day-hero-num {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--a-text);
+  line-height: 1;
+}
+.day-hero-label {
+  font-size: 14px;
+  color: var(--a-text-2);
+  font-weight: 500;
+}
+.day-hero-next { text-align: right; }
+.next-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--a-text-3);
+  display: block;
+  margin-bottom: .15rem;
+}
+.next-detail {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--a-text);
+}
+
+/* ── 27. Appointment cards (accordion) ───────────────────────────────────── */
+
+.appt-list { display: flex; flex-direction: column; gap: .5rem; }
+
+.appt-card {
+  background: var(--a-surface);
+  border: 1px solid var(--a-border);
+  border-radius: var(--a-r-lg);
+  overflow: hidden;
+  border-left-width: 3px;
+}
+.appt-card.status-new       { border-left-color: var(--st-new-text); }
+.appt-card.status-scheduled { border-left-color: var(--st-sched-text); }
+.appt-card.status-completed { border-left-color: var(--st-done-text); }
+.appt-card.status-cancelled { border-left-color: var(--st-cancel-text); }
+
+.appt-summary {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: .625rem;
+  padding: .75rem 1rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  color: inherit;
+  transition: background .15s;
+}
+.appt-summary:hover { background: var(--a-surface-2); }
+
+.appt-time {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--a-text-2);
+  white-space: nowrap;
+  min-width: 52px;
+}
+
+.appt-info { flex: 1; min-width: 0; }
+.appt-name {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--a-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.appt-meta {
+  display: block;
+  font-size: 12px;
+  color: var(--a-text-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
+}
+
+/* Status badge for cards (separate from .admin-status-badge) */
+.status-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.status-badge.status-new       { background: var(--st-new-bg);    color: var(--st-new-text); }
+.status-badge.status-scheduled { background: var(--st-sched-bg);  color: var(--st-sched-text); }
+.status-badge.status-completed { background: var(--st-done-bg);   color: var(--st-done-text); }
+.status-badge.status-cancelled { background: var(--st-cancel-bg); color: var(--st-cancel-text); }
+
+.chevron {
+  color: var(--a-text-3);
+  transition: transform .2s;
+  flex-shrink: 0;
+}
+.appt-summary[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+
+.appt-detail {
+  display: none;
+  border-top: 1px solid var(--a-border);
+}
+.appt-detail.is-open { display: block; }
+.appt-detail-inner { padding: .875rem 1rem 1rem; }
+
+/* ── 28. Contact links inside cards ──────────────────────────────────────── */
+
+.contact-links {
+  display: flex;
+  gap: .375rem;
+  flex-wrap: wrap;
+  margin-bottom: .75rem;
+}
+
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: 12px;
+  font-weight: 600;
+  padding: .3rem .65rem;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: opacity .15s;
+  white-space: nowrap;
+}
+.contact-btn:hover { opacity: .8; }
+.contact-btn--call  { background: var(--st-done-bg);   color: var(--st-done-text); }
+.contact-btn--sms   { background: var(--st-new-bg);    color: var(--st-new-text); }
+.contact-btn--email { background: var(--st-cancel-bg); color: var(--st-cancel-text); }
+.contact-btn--map   { background: var(--st-sched-bg);  color: var(--st-sched-text); }
+
+/* ── 29. Card actions / notes ─────────────────────────────────────────────── */
+
+.appt-desc {
+  font-size: 13px;
+  color: var(--a-text-2);
+  margin: 0 0 .75rem;
+  line-height: 1.5;
+}
+
+.note-row { margin-bottom: .75rem; }
+.note-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--a-text-2);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-bottom: .3rem;
+}
+.note-input {
+  display: block;
+  width: 100%;
+  padding: .5rem .75rem;
+  border: 1px solid var(--a-border);
+  border-radius: var(--a-r-sm);
+  background: var(--a-surface-2);
+  color: var(--a-text);
+  font-family: inherit;
+  font-size: 13px;
+  resize: vertical;
+  transition: border-color .15s;
+}
+.note-input:focus { outline: none; border-color: var(--a-primary); }
+
+.action-row {
+  display: flex;
+  gap: .375rem;
+  flex-wrap: wrap;
+  margin-bottom: .75rem;
+}
+.action-btn {
+  flex: 1;
+  min-width: 72px;
+  padding: .4rem .5rem;
+  border: 1px solid var(--a-border);
+  border-radius: var(--a-r-sm);
+  background: var(--a-surface-2);
+  color: var(--a-text);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s;
+  text-align: center;
+}
+.action-btn:hover:not(:disabled) { border-color: var(--a-primary); color: var(--a-primary); }
+.action-btn:disabled { opacity: .45; cursor: not-allowed; }
+.action-confirm.is-current { background: var(--st-sched-bg); border-color: var(--st-sched-text); color: var(--st-sched-text); }
+.action-complete.is-current { background: var(--st-done-bg); border-color: var(--st-done-text); color: var(--st-done-text); }
+.action-cancel.is-current   { background: var(--st-cancel-bg); border-color: var(--st-cancel-text); color: var(--st-cancel-text); }
+
+.details-link {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--a-primary);
+  text-decoration: none;
+  padding-top: .5rem;
+  border-top: 1px solid var(--a-border);
+}
+.details-link:hover { text-decoration: underline; }
+
+/* ── 30. Empty state ──────────────────────────────────────────────────────── */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--a-text-3);
+  gap: .5rem;
+}
+.empty-state p { margin: 0; font-size: 14px; }
+.empty-add-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--a-primary);
+  text-decoration: none;
+  margin-top: .25rem;
+}
+.empty-add-link:hover { text-decoration: underline; }
+
+/* ── 31. Create / full-page form ──────────────────────────────────────────── */
+
+.create-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 2rem;
+}
+.create-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 1.5rem;
+  color: var(--a-text);
+}
+
+.form-stack { display: flex; flex-direction: column; gap: 1rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { display: flex; flex-direction: column; }
+
+.form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--a-text-2);
+  margin-bottom: .3rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.req { color: #ef4444; }
+
+.form-input {
+  display: block;
+  width: 100%;
+  padding: .5rem .75rem;
+  border: 1px solid var(--a-border);
+  border-radius: var(--a-r-sm);
+  background: var(--a-surface);
+  color: var(--a-text);
+  font-family: inherit;
+  font-size: 14px;
+  appearance: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+.form-input:focus {
+  outline: none;
+  border-color: var(--a-primary);
+  box-shadow: 0 0 0 3px rgba(22,163,74,.15);
+}
+.form-textarea { resize: vertical; min-height: 80px; }
+
+.form-error {
+  font-size: 12px;
+  color: #dc2626;
+  margin-top: .2rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: .5rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--a-border);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  padding: .55rem 1.1rem;
+  border: 1px solid transparent;
+  border-radius: var(--a-r-sm);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .15s, border-color .15s, color .15s;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--a-primary);
+  color: #fff;
+  border-color: var(--a-primary);
+}
+.btn-primary:hover { background: var(--a-primary-h); border-color: var(--a-primary-h); }
+.btn-ghost {
+  background: transparent;
+  color: var(--a-text-2);
+  border-color: var(--a-border);
+}
+.btn-ghost:hover { background: var(--a-surface-2); color: var(--a-text); }
+
+/* ── 32. Toast container (app layout name) ────────────────────────────────── */
+
+.toast-container {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 400;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: .5rem;
+  pointer-events: none;
+}
+
+/* ── 33. Responsive additions ─────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  .form-row { grid-template-columns: 1fr; }
+  .form-actions { flex-direction: column-reverse; }
+  .form-actions .btn { width: 100%; justify-content: center; }
+  .day-hero { flex-direction: column; align-items: flex-start; }
+  .day-hero-next { text-align: left; }
+}
