@@ -1,0 +1,180 @@
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@{
+    var csrfToken = Antiforgery.GetAndStoreTokens(Context).RequestToken;
+}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Cime-X Admin</title>
+    <meta name="csrf-token" content="@csrfToken" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+</head>
+<body class="admin-body">
+
+    <!-- Topbar -->
+    <header class="admin-topbar">
+        <div class="admin-topbar-left">
+            <button id="sidebar-toggle" class="admin-icon-btn" aria-label="Toggle sidebar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+            <span class="admin-topbar-brand">Cime-X Admin</span>
+        </div>
+        <div class="admin-topbar-right">
+            <button id="new-booking-btn" class="admin-btn admin-btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                New Booking
+            </button>
+            <button id="theme-toggle" class="admin-icon-btn" aria-label="Toggle dark mode" title="Toggle dark mode">
+                <svg id="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+                <svg id="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div class="admin-shell">
+
+        <!-- Sidebar -->
+        <nav class="admin-sidebar" id="admin-sidebar" aria-label="Admin navigation">
+            <ul class="admin-nav-list">
+                <li>
+                    <a asp-controller="Admin" asp-action="Index"
+                       class="admin-nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "is-active" : "")">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+                            <rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>
+                        </svg>
+                        Dashboard
+                    </a>
+                </li>
+            </ul>
+            <div class="admin-nav-footer">
+                <a asp-controller="Home" asp-action="Index" class="admin-nav-link admin-nav-link--muted">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                        <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                    </svg>
+                    View public site
+                </a>
+            </div>
+        </nav>
+
+        <!-- Page content -->
+        <main class="admin-main" id="admin-main">
+            @RenderBody()
+        </main>
+
+    </div>
+
+    <!-- Panel overlay -->
+    <div id="appt-panel-overlay" class="admin-panel-overlay" aria-hidden="true"></div>
+
+    <!-- Slide-in appointment panel -->
+    <aside id="appt-panel" class="admin-panel" aria-label="Appointment details" aria-hidden="true">
+        <div class="admin-panel-header">
+            <h2 id="appt-panel-title" class="admin-panel-title">Appointment</h2>
+            <button id="appt-panel-close" class="admin-icon-btn" aria-label="Close panel">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+        <div id="appt-panel-body" class="admin-panel-body">
+            <div class="admin-skeleton"></div>
+        </div>
+    </aside>
+
+    <!-- Quick-add modal -->
+    <div id="quick-add-modal" class="admin-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="admin-modal" role="document">
+            <div class="admin-modal-header">
+                <h2 id="modal-title" class="admin-modal-title">New Booking</h2>
+                <button id="modal-close" class="admin-icon-btn" aria-label="Close">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <form id="quick-add-form" novalidate>
+                <div class="admin-modal-body">
+                    <div class="admin-form-row">
+                        <div class="admin-form-group">
+                            <label class="admin-label">Name <span class="admin-req">*</span></label>
+                            <input type="text" name="customerName" class="admin-input" required autocomplete="name" />
+                        </div>
+                        <div class="admin-form-group">
+                            <label class="admin-label">Phone <span class="admin-req">*</span></label>
+                            <input type="tel" name="phone" class="admin-input" required autocomplete="tel" />
+                        </div>
+                    </div>
+                    <div class="admin-form-row">
+                        <div class="admin-form-group">
+                            <label class="admin-label">Email</label>
+                            <input type="email" name="email" class="admin-input" autocomplete="email" />
+                        </div>
+                        <div class="admin-form-group">
+                            <label class="admin-label">Pest Type <span class="admin-req">*</span></label>
+                            <select name="pestType" class="admin-input" required>
+                                <option value="0">Ants</option>
+                                <option value="1">Bed Bugs</option>
+                                <option value="2">Cockroaches</option>
+                                <option value="3">Fleas</option>
+                                <option value="4">Mosquitoes</option>
+                                <option value="5">Rodents</option>
+                                <option value="6">Spiders</option>
+                                <option value="7">Termites</option>
+                                <option value="8">Wasps</option>
+                                <option value="9">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="admin-form-group">
+                        <label class="admin-label">Address <span class="admin-req">*</span></label>
+                        <input type="text" name="address" class="admin-input" required autocomplete="street-address" />
+                    </div>
+                    <div class="admin-form-row">
+                        <div class="admin-form-group">
+                            <label class="admin-label">Scheduled For</label>
+                            <input type="datetime-local" name="scheduledFor" class="admin-input" />
+                        </div>
+                        <div class="admin-form-group">
+                            <label class="admin-label">Price ($)</label>
+                            <input type="number" name="price" class="admin-input" step="0.01" min="0" placeholder="0.00" />
+                        </div>
+                    </div>
+                    <div class="admin-form-group">
+                        <label class="admin-label">Description / Notes</label>
+                        <textarea name="description" class="admin-input admin-textarea" rows="3" placeholder="Optional details about the job..."></textarea>
+                    </div>
+                </div>
+                <div class="admin-modal-footer">
+                    <button type="button" id="modal-cancel" class="admin-btn admin-btn-ghost">Cancel</button>
+                    <button type="submit" class="admin-btn admin-btn-primary">Create Booking</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast container -->
+    <div id="toast-container" class="admin-toast-container" aria-live="polite"></div>
+
+    <script src="~/js/admin.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

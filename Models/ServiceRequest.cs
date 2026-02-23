@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Extermination.Models;
 
@@ -20,7 +21,8 @@ public enum ServiceStatus
 {
     New,
     Scheduled,
-    Completed
+    Completed,
+    Cancelled
 }
 
 public class ServiceRequest
@@ -50,6 +52,11 @@ public class ServiceRequest
     public ServiceStatus Status { get; set; } = ServiceStatus.New;
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    public DateTime? ScheduledFor { get; set; }
+
+    [Column(TypeName = "decimal(10,2)")]
+    public decimal? Price { get; set; }
 
     [MaxLength(2000)]
     public string? Notes { get; set; }

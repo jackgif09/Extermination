@@ -1,111 +1,137 @@
-@model ServiceRequest
+@model AppointmentDetailViewModel
 @{
+    Layout = "_AdminLayout";
     ViewData["Title"] = $"Request #{Model.Id}";
-
-    string badge = Model.Status switch
-    {
-        ServiceStatus.New       => "bg-blue-50 text-blue-600",
-        ServiceStatus.Scheduled => "bg-amber-50 text-amber-700",
-        ServiceStatus.Completed => "bg-green-50 text-green-700",
-        _                       => "bg-gray-100 text-gray-500"
-    };
 }
 
-<div class="max-w-5xl mx-auto px-6 py-10">
+<div class="admin-page admin-details-page">
 
-    <a asp-controller="Admin" asp-action="Index"
-       class="text-sm text-gray-600 hover:text-gray-900 transition-colors mb-8 inline-block">
-        &larr; All requests
+    <!-- Breadcrumb -->
+    <a asp-controller="Admin" asp-action="Index" class="admin-back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to Dashboard
     </a>
 
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-10">
+    <!-- Header -->
+    <div class="admin-details-header">
         <div>
-            <h1 class="text-2xl font-bold text-gray-900">@Model.CustomerName</h1>
-            <p class="text-gray-600 text-sm mt-1">Submitted @Model.CreatedAt.ToString("MMMM d, yyyy")</p>
+            <h1 class="admin-details-name">@Model.CustomerName</h1>
+            <p class="admin-details-sub">Submitted @Model.CreatedAt.ToString("MMMM d, yyyy")</p>
         </div>
-        <span class="self-start text-xs font-medium px-3 py-1.5 rounded-lg @badge">@Model.Status</span>
+        <span class="admin-status-badge admin-status-lg admin-status-@Model.Status.ToString().ToLower()">@Model.Status</span>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+    <div class="admin-details-grid">
 
-        <!-- Details -->
-        <div class="md:col-span-2 space-y-10">
+        <!-- Left: Customer info + notes -->
+        <div class="admin-details-main">
 
-            <dl class="space-y-5 text-sm">
-                <div class="flex gap-6">
-                    <dt class="w-28 shrink-0 text-gray-600">Phone</dt>
-                    <dd><a href="tel:@Model.Phone" class="text-gray-900 hover:text-green-700 transition-colors">@Model.Phone</a></dd>
-                </div>
-                <div class="flex gap-6">
-                    <dt class="w-28 shrink-0 text-gray-600">Email</dt>
-                    <dd><a href="mailto:@Model.Email" class="text-gray-900 hover:text-green-700 transition-colors">@Model.Email</a></dd>
-                </div>
-                <div class="flex gap-6">
-                    <dt class="w-28 shrink-0 text-gray-600">Address</dt>
-                    <dd class="text-gray-700 leading-relaxed">@Model.Address</dd>
-                </div>
-                <div class="flex gap-6">
-                    <dt class="w-28 shrink-0 text-gray-600">Pest type</dt>
-                    <dd class="text-gray-700">@Model.PestType.ToString().Replace("_", " ")</dd>
-                </div>
-                <div class="flex gap-6">
-                    <dt class="w-28 shrink-0 text-gray-600">Preferred date</dt>
-                    <dd class="text-gray-700">
-                        @(Model.PreferredDate.HasValue ? Model.PreferredDate.Value.ToString("MMMM d, yyyy") : "Not specified")
-                    </dd>
-                </div>
-                @if (!string.IsNullOrWhiteSpace(Model.Description))
-                {
-                    <div class="flex gap-6">
-                        <dt class="w-28 shrink-0 text-gray-600 pt-0.5">Description</dt>
-                        <dd class="text-gray-700 leading-relaxed">@Model.Description</dd>
+            <!-- Contact info -->
+            <div class="admin-surface admin-details-card">
+                <h2 class="admin-card-section-title">Contact</h2>
+                <dl class="admin-dl">
+                    <div class="admin-dl-row">
+                        <dt>Phone</dt>
+                        <dd>
+                            <a href="@Model.PhoneHref" class="admin-contact-link">@Model.Phone</a>
+                            <a href="@Model.PhoneHref" class="admin-contact-action" title="Call">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                Call
+                            </a>
+                            <a href="@Model.SmsHref" class="admin-contact-action" title="Text">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                                Text
+                            </a>
+                        </dd>
                     </div>
-                }
-            </dl>
+                    <div class="admin-dl-row">
+                        <dt>Email</dt>
+                        <dd>
+                            <a href="@Model.EmailHref" class="admin-contact-link">@Model.Email</a>
+                        </dd>
+                    </div>
+                    <div class="admin-dl-row">
+                        <dt>Address</dt>
+                        <dd>
+                            @Model.Address
+                            <a href="@Model.MapsHref" target="_blank" rel="noopener" class="admin-contact-action" title="Open in Maps">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                Map
+                            </a>
+                        </dd>
+                    </div>
+                    <div class="admin-dl-row">
+                        <dt>Pest</dt>
+                        <dd>@Model.PestType.ToString().Replace("_", " ")</dd>
+                    </div>
+                    @if (Model.PreferredDate.HasValue)
+                    {
+                        <div class="admin-dl-row">
+                            <dt>Preferred date</dt>
+                            <dd>@Model.PreferredDate.Value.ToString("MMMM d, yyyy")</dd>
+                        </div>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(Model.Description))
+                    {
+                        <div class="admin-dl-row">
+                            <dt>Description</dt>
+                            <dd>@Model.Description</dd>
+                        </div>
+                    }
+                    @if (Model.ScheduledFor.HasValue)
+                    {
+                        <div class="admin-dl-row">
+                            <dt>Scheduled for</dt>
+                            <dd>@Model.ScheduledFor.Value.ToString("MMMM d, yyyy h:mm tt")</dd>
+                        </div>
+                    }
+                    @if (Model.Price.HasValue)
+                    {
+                        <div class="admin-dl-row">
+                            <dt>Price</dt>
+                            <dd>$@Model.Price.Value.ToString("N2")</dd>
+                        </div>
+                    }
+                </dl>
+            </div>
 
             <!-- Internal notes -->
-            <div>
-                <h2 class="text-sm font-semibold text-gray-900 mb-3">Internal notes</h2>
+            <div class="admin-surface admin-details-card">
+                <h2 class="admin-card-section-title">Internal Notes</h2>
                 <form asp-action="UpdateNotes" asp-controller="Admin" method="post">
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="id" value="@Model.Id" />
-                    <textarea name="notes" rows="5"
-                              placeholder="Add notes visible only to you — scheduling details, access instructions, follow-up reminders, etc."
-                              class="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-900 bg-white text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:border-green-600 transition resize-y">@Model.Notes</textarea>
-                    <button type="submit"
-                            class="mt-2 bg-gray-900 hover:bg-gray-700 text-white font-medium py-2.5 px-5 rounded-xl text-sm transition-colors">
-                        Save notes
-                    </button>
+                    <textarea name="notes" rows="5" class="admin-input admin-textarea"
+                              placeholder="Scheduling details, access instructions, follow-up reminders…">@Model.Notes</textarea>
+                    <button type="submit" class="admin-btn admin-btn-secondary" style="margin-top: .75rem">Save Notes</button>
                 </form>
             </div>
 
         </div>
 
-        <!-- Status update -->
-        <div>
-            <h2 class="text-sm font-semibold text-gray-900 mb-4">Update status</h2>
-            <form asp-action="UpdateStatus" asp-controller="Admin" method="post">
-                @Html.AntiForgeryToken()
-                <input type="hidden" name="id" value="@Model.Id" />
-                <select name="status"
-                        class="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:border-green-600 transition mb-3">
-                    @foreach (var s in Enum.GetValues<ServiceStatus>())
-                    {
-                        if (s == Model.Status)
+        <!-- Right: Status update -->
+        <div class="admin-details-sidebar">
+            <div class="admin-surface admin-details-card">
+                <h2 class="admin-card-section-title">Update Status</h2>
+                <form asp-action="UpdateStatus" asp-controller="Admin" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <select name="status" class="admin-input" style="margin-bottom:.75rem">
+                        @foreach (var s in Enum.GetValues<ServiceStatus>())
                         {
-                            <option value="@s" selected>@s</option>
+                            if (s == Model.Status)
+                            {
+                                <option value="@s" selected>@s</option>
+                            }
+                            else
+                            {
+                                <option value="@s">@s</option>
+                            }
                         }
-                        else
-                        {
-                            <option value="@s">@s</option>
-                        }
-                    }
-                </select>
-                <button type="submit"
-                        class="w-full bg-green-700 hover:bg-green-800 text-white font-medium py-3 rounded-xl text-sm transition-colors">
-                    Save
-                </button>
-            </form>
+                    </select>
+                    <button type="submit" class="admin-btn admin-btn-primary" style="width:100%">Save Status</button>
+                </form>
+            </div>
         </div>
 
     </div>
