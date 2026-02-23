@@ -1,11 +1,13 @@
 using Extermination.Data;
 using Extermination.Models;
 using Extermination.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Extermination.Controllers;
 
+[Authorize]
 public class AdminController : Controller
 {
     private readonly AppDbContext _db;
